@@ -5,10 +5,6 @@ eclaims-be/.project
 eclaims-be/.settings/
 eclaims-be/*.log
 
-# Ignore data folder if it contains temp or runtime data
-# Uncomment the next line if you don’t want to version control data
-# backend-java/data/
-
 # === Angular frontend ===
 eclaims-fe/eclaims-ui/node_modules/
 eclaims-fe/eclaims-ui/dist/
