@@ -1,0 +1,25 @@
+<div class="container">
+    <h2 class="text-primary text-center mb-4">Your Submitted Claims</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Claim ID</th>
+                <th>Policy Number</th>
+                <th>Claim Type</th>
+                <th>Status</th>
+                <th>View</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of claims">
+                <td>{{ c.claimId }}</td>
+                <td>{{ c.policyNumber }}</td>
+                <td>{{ c.claimType }}</td>
+                <td>{{ c.status }}</td>
+                <td><button (click)="viewClaim(c.claimId)" class="btn btn-link">View</button></td>
+            </tr>
+        </tbody>
+        <p *ngIf="claims.length == 0">No Claims are available...</p>
+    </table>
+   
+</div>

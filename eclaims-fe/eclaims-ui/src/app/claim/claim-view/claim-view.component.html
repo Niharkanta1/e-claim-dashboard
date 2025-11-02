@@ -1,0 +1,58 @@
+<div class="container my-5">
+    <div *ngIf="claim" class="p-4">
+        <h2 class="mb-4">Claim Details</h2>
+
+        <!-- Claim Basic Information -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Claim Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Claim ID:</strong> {{ claim.claimId }}</p>
+                <p><strong>Policy Number:</strong> {{ claim.policyNumber }}</p>
+                <p><strong>Claim Type:</strong> {{ claim.claimType }}</p>
+                <p><strong>Status:</strong> {{ claim.status }}</p>
+                <p><strong>Description:</strong> {{ claim.description }}</p>
+                <p><strong>Date of Incident:</strong> {{ claim.dateOfIncident | date:'yyyy-MM-dd' }}</p>
+            </div>
+        </div>
+
+        <!-- Customer Information -->
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">Customer Details</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Customer Name:</strong> {{ claim.customer.firstName }} {{ claim.customer.lastName }}</p>
+                <p><strong>Customer Email:</strong> {{ claim.customer.email }}</p>
+                <p><strong>Customer Phone:</strong> {{ claim.customer.phoneNumber }}</p>
+                <p><strong>Customer Address:</strong> {{ claim.customer.address }}</p>
+            </div>
+        </div>
+
+        <!-- Assignment Information -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Assignment Details</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Assignment ID:</strong> {{ claim.assignment.assignmentId }}</p>
+                <p><strong>Assigned Manager:</strong> {{ claim.assignment.manager.firstName }} {{ claim.assignment.manager.lastName }}</p>
+                <p><strong>Manager Email:</strong> {{ claim.assignment.manager.email }}</p>
+                <p><strong>Manager Phone:</strong> {{ claim.assignment.manager.phoneNumber }}</p>
+                <p><strong>Assigned At:</strong> {{ claim.assignment.assignedAt | date:'yyyy-MM-dd HH:mm' }}</p>
+            </div>
+        </div>
+
+        <!-- Document Paths -->
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-white">
+                <h5 class="mb-0">Documents</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Document Paths:</strong> {{ claim.documentPaths || 'No documents uploaded' }}</p>
+            </div>
+        </div>
+
+    </div>
+</div>

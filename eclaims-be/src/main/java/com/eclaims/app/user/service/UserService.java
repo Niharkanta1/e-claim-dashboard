@@ -1,15 +1,19 @@
 package com.eclaims.app.user.service;
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
 import com.eclaims.app.user.entity.User;
+import com.eclaims.app.user.enums.UserRole;
 
 public interface UserService {
-	User getUser(String userName) throws UsernameNotFoundException;
+    User getUser(Long id);
 
-	User registerUser(User user);
+    User getUser(String userName) throws UsernameNotFoundException;
 
-	User updateUser(User user);
+    User registerUser(User user);
 
-	void deleteUser(Long userId);
+    User updateUser(User user);
+
+    void deleteUser(Long userId);
+
+    User getUserForAreaCodeWithRole(String areaCode, UserRole role);
 }

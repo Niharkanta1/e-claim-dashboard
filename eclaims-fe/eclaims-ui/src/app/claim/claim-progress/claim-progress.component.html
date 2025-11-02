@@ -1,0 +1,65 @@
+    <div class="container my-5">
+        <div *ngIf="claim" class="p-4">
+            <h2 class="mb-4">Claim Status Flow</h2>
+
+            <!-- Status Flow -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Claim Status Timeline</h5>
+                </div>
+                <div class="card-body">
+                    
+                    <ul class="list-group list-group-flush">
+                        <!-- Claim Id -->
+                        <li class="list-group-item">
+                            <strong>Claim Id: </strong>
+                            <span class="float-end">
+                                {{ claim.claimId }} <button (click)="showClaimDetails()" class="btn btn-outline-primary btn-sm align-right">View Details</button>
+                            </span> 
+                        </li>
+
+                        <!-- Status -->
+                        <li class="list-group-item">
+                            <strong>Current Status: </strong>
+                            <span class="float-end">{{ claim.status }}</span>
+                        </li>
+
+                        <li class="list-group-item">
+                            <strong>Submitted: </strong>
+                            <span class="float-end">{{ claim.createdAt | date: 'yyyy-MM-dd HH:mm' }}</span>
+                        </li>
+
+                        <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.assignedAt">
+                            <strong>Incient Manager Assigned: </strong>
+                            <span class="float-end">{{ claim.assignment.assignedAt | date: 'yyyy-MM-dd HH:mm' }}</span>
+                        </li>
+
+                        <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.assignedAt">
+                            <strong>Assigned To Adjuster: </strong>
+                            <span class="float-end"></span>
+                        </li>
+                        
+                        <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.assignedAt">
+                            <strong>Assigned To Partner Garage: </strong>
+                            <span class="float-end"></span>
+                        </li>
+
+                        <li class="list-group-item">
+                            <strong>Survey Completed: </strong>
+                            <span class="float-end"></span>
+                        </li>
+
+                        <li class="list-group-item">
+                            <strong>Approved: </strong>
+                            <span class="float-end"></span>
+                        </li>
+
+                        <li class="list-group-item">
+                            <strong>Settled: </strong>
+                            <span class="float-end"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>

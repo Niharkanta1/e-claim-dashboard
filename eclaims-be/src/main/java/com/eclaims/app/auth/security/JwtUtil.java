@@ -20,6 +20,7 @@ public class JwtUtil {
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("roles", userDetails.getAuthorities());
+		//claims.put("userId", )
 
 		SecretKey key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
 

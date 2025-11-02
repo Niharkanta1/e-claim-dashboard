@@ -50,4 +50,8 @@ export class AuthService {
   isLoggedIn() {
     return !!localStorage.getItem("token");
   }
+
+  getLocalToken() {
+    return localStorage.getItem("token");
+  }
 }

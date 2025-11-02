@@ -1,0 +1,65 @@
+<div class="container" style="max-width: 60%; margin: 0 auto;">
+    <h2 class="text-primary text-center mb-4">Submit New Claim</h2>
+    <form (ngSubmit)="submitClaim()" class="p-4" [formGroup]="claimForm">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First Name<span class="text-danger">*</span></label>
+            <input id="firstName" formControlName="firstName" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last Name<span class="text-danger">*</span></label>
+            <input id="lastName" formControlName="lastName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="policyNumber" class="form-label">Policy Number<span class="text-danger">*</span></label>
+            <input id="policyNumber" formControlName="policyNumber" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="policyType" class="form-label">Policy Type<span class="text-danger">*</span></label>
+            <select id="policyType" formControlName="policyType" class="form-control">
+                <option value="" disabled selected>Select Policy Type</option>
+                <option value="Personal Vehicle">Personal Vehicle</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Rental">Rental</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="dateOfIncident" class="form-label">Date of Incident<span class="text-danger">*</span></label>
+            <input type="date" id="dateOfIncident" formControlName="dateOfIncident" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="claimType" class="form-label">Claim Type<span class="text-danger">*</span></label>
+            <select id="claimType" formControlName="claimType" class="form-control">
+                <option value="" disabled selected>Select Claim Type</option>
+                <option value="Medical">Medical</option>
+                <option value="Accident">Accident</option>
+                <option value="Theft">Theft</option>
+                <option value="Damage">Damage</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" formControlName="description" class="form-control"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="contactNumber" class="form-label">Contact Number<span class="text-danger">*</span></label>
+            <input id="contactNumber" formControlName="contactNumber" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="fileUpload" class="form-label">Upload Files</label>
+            <input type="file" id="fileUpload" multiple (change)="onFileChange($event)" class="form-control" />
+        </div>
+
+        <button [disabled]="submitting" type="submit" class="btn btn-primary">
+            {{ submitting ? 'Submitting...' : 'Submit Claim' }}
+        </button>
+    </form>
+
+</div>

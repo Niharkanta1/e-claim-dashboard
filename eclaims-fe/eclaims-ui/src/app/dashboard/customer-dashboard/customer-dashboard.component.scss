@@ -1,0 +1,26 @@
+/* Styling for the status timeline */
+.list-group-item {
+    position: relative;
+    padding-left: 30px;
+}
+
+.list-group-item:before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #007bff;
+}
+
+.list-group-item:last-child {
+    border-bottom: none;
+}
+
+/* Color customization based on status */
+.list-group-item strong {
+    font-weight: bold;
+    color: #007bff;
+}

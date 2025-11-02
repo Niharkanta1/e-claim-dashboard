@@ -1,1 +1,14 @@
-<p>customer-dashboard works!</p>
+<div class="dashboard">
+    <h2 class="margin-left-10 margin-top-10">Customer Dashboard</h2>
+    <nav class="menu margin-left-10">
+        <a routerLink="/customer-dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a> |
+        <a routerLink="claims" routerLinkActive="active">My Claims</a> |
+        <a routerLink="new-claim" routerLinkActive="active">New Claim</a> |
+        <a routerLink="partner-garage" routerLinkActive="active">Partner Garage</a> |
+        <a routerLink="rental" routerLinkActive="active">Rental</a>
+    </nav>
+
+    <hr />
+    <router-outlet></router-outlet>
+
+</div>
