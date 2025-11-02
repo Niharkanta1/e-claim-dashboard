@@ -58,13 +58,14 @@ public class ClaimServiceImpl implements ClaimService {
 		return claimRepository.findAll();
 	}
 
+	@Override
 	public List<Claim> getClaimsForUser(String username) {
 		List<Claim> claimList = null;
 		User user = userService.getUser(username);
 		String userRole = user.getRoles().stream().findFirst().get();
 		switch (userRole) {
 		case "CUSTOMER":
-
+			claimRepository.get
 			break;
 		case "PARTNER":
 			break;

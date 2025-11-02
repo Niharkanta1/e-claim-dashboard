@@ -27,7 +27,8 @@ public class ClaimController {
 	private ClaimService claimService;
 
 	@GetMapping("/user/{userId}")
-	public List<String> getOrdersForUser(@PathVariable Long userId) {
+	public List<String> getClaimsForUser(@PathVariable Long userId) {
+
 		return Arrays.asList("claim-1-for-user-" + userId, "claim-2-for-user-" + userId);
 	}
 

@@ -21,6 +21,7 @@ public class Claim {
 	private String claimType;
 	private String description;
 	private String contactNumber;
+	private String policyUser;
 
 	@Lob
 	private String documentPaths;

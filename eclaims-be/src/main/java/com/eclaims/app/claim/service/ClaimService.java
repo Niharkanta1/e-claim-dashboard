@@ -13,4 +13,5 @@ public interface ClaimService {
 
 	List<Claim> getAllClaims();
 
+	List<Claim> getClaimsForUser(String username);
 }
