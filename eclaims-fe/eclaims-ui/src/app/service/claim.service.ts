@@ -33,6 +33,20 @@ export class ClaimService {
   getLatestClaim(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/-1`);
   }
+
+  assignUserToClaim(claimId: number, userId: number, role: string) {
+    return this.http.put(
+      `${this.baseUrl}/assign/${claimId}?userId=${userId}&role=${role}`,
+      {}
+    );
+  }
+
+  removeUserToClaim(claimId: number, role: string) {
+    return this.http.put(
+      `${this.baseUrl}/remove-assign/${claimId}?&role=${role}`,
+      {}
+    );
+  }
 }
 
 export interface ClaimRequest {

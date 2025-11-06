@@ -6,9 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -64,30 +63,90 @@ public class ClaimServiceImpl implements ClaimService {
         claim.setCreatedAt(LocalDateTime.now());
         claim.setCustomer(currentUser);
         findAndAssignAreaManager(claim);
-        addEvent(claim, currentUser, EventType.SUBMITTED);
+        addEvent(claim, currentUser);
         return claimRepository.save(claim);
     }
 
-    private void addEvent(Claim claim, User user, EventType eventType) {
-        ClaimEvent event = new ClaimEvent();
-        event.setEventTime(LocalDateTime.now());
-        event.setUser(user);
-        event.setClaim(claim);
-        event.setEvent(eventType);
-        claim.setEvents(Arrays.asList(event));
+    private void addEvent(Claim claim, User user) {
+        ClaimEvent event = getClaimEvent(claim, user, EventType.SUBMITTED);
+        claim.setEvents(Collections.singletonList(event));
     }
 
-    public Claim assigntToUser(Long claimId, UserRole role) {
-        // TODO - Assing the current claim to the user;
-        return null;
+    private ClaimEvent getClaimEvent(Claim claim, User user, EventType eventType) {
+        ClaimEvent event = new ClaimEvent();
+        event.setEventTime(LocalDateTime.now());
+        event.setUserId(user != null? user.getId() : null);
+        event.setClaim(claim);
+        event.setEvent(eventType);
+        return event;
+    }
+
+    @Override
+    public Claim assignToUser(Long claimId, UserRole role, String userName) {
+        Optional<Claim> claimOptional = claimRepository.findById(claimId);
+        if(claimOptional.isPresent()) {
+            User user = userService.getUser(userName);
+            Claim claim = claimOptional.get();
+            switch (role) {
+                case ADJUSTER:
+                    claim.getAssignment().setAdjuster(user);
+                    claim.getEvents().add(getClaimEvent(claim, user, EventType.ADJUSTER_ASSIGNED));
+                    break;
+                case SURVEYOR:
+                    claim.getAssignment().setSurveyor(user);
+                    claim.getEvents().add(getClaimEvent(claim, user, EventType.SURVEYOR_ASSIGNED));
+                    break;
+                default:
+                    throw new RuntimeException("Invalid user assignment");
+            }
+            return claimRepository.save(claim);
+        } else {
+            throw new RuntimeException("Claim is not found");
+        }
+    }
+
+    @Override
+    public Claim removeAssignment(Long claimId, UserRole userRole) {
+        Optional<Claim> claimOptional = claimRepository.findById(claimId);
+        if(claimOptional.isPresent()) {
+            Claim claim = claimOptional.get();
+            switch (userRole) {
+                case ADJUSTER:
+                    claim.getAssignment().setAdjuster(null);
+                    claim.getEvents().add(getClaimEvent(claim, null, EventType.ADJUSTER_REMOVED));
+                    break;
+                case SURVEYOR:
+                    claim.getAssignment().setSurveyor(null);
+                    claim.getEvents().add(getClaimEvent(claim, null, EventType.SURVEYOR_REMOVED));
+                    break;
+                default:
+                    throw new RuntimeException("Invalid user assignment");
+            }
+            return claimRepository.save(claim);
+        } else {
+            throw new RuntimeException("Claim is not found");
+        }
     }
 
     private void findAndAssignAreaManager(Claim claim) {
         ClaimAssignment assignment = new ClaimAssignment();
-        User user = userService.getUserForAreaCodeWithRole(claim.getCustomer().getAreaCode(), UserRole.MANAGER);
-        assignment.setManager(user);
-        assignment.setAssignedAt(LocalDateTime.now());
+        User manager = userService.getUserForAreaCodeWithRole(claim.getCustomer().getAreaCode(), UserRole.MANAGER);
+        log.info("Auto Assigning MANAGER: {} to the claim: {}", manager.getFirstName(), claim.getClaimId());
+        assignment.setManager(manager);
+        claim.getEvents().add(getClaimEvent(claim, manager, EventType.MANAGER_ASSIGNED));
+        
+        User adjuster = userService.getUserForAreaCodeWithRole(claim.getCustomer().getAreaCode(), UserRole.ADJUSTER);
+        log.info("Auto Assigning ADJUSTER: {} to the claim: {}", manager.getFirstName(), claim.getClaimId());
+        assignment.setAdjuster(adjuster);
+        claim.getEvents().add(getClaimEvent(claim, adjuster, EventType.ADJUSTER_ASSIGNED));
+
+        User surveyor = userService.getUserForAreaCodeWithRole(claim.getCustomer().getAreaCode(), UserRole.SURVEYOR);
+        log.info("Auto Assigning SURVEYOR: {} to the claim: {}", manager.getFirstName(), claim.getClaimId());
+        assignment.setSurveyor(surveyor);
+        claim.getEvents().add(getClaimEvent(claim, surveyor, EventType.SURVEYOR_ASSIGNED));
+        
         assignment.setClaim(claim);
+        assignment.setAssignedAt(LocalDateTime.now());
         claim.setAssignment(assignment);
     }
 

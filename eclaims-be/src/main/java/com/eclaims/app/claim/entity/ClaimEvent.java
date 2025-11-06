@@ -27,9 +27,7 @@ public class ClaimEvent {
     @JoinColumn(name = "claim_id")
     private Claim claim;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Long userId;
 
     private LocalDateTime eventTime;
 

@@ -1,7 +1,10 @@
 package com.eclaims.app.user.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -28,9 +31,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(String userName) throws UsernameNotFoundException {
         log.info("Fetching User with username: {}", userName);
-        User user = userRepository.findByUsername(userName)
+        return userRepository.findByUsername(userName)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return user;
     }
 
     @Override
@@ -50,8 +52,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(User user) {
         log.info("Updating User : {}", user);
-        userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("User does not exist"));
-        if (user == null || user.getUsername() == null) {
+        userRepository.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("User does not exist"));
+        if (user.getUsername() == null) {
             throw new RuntimeException("Invalid user details");
         }
         return userRepository.save(user);
@@ -66,8 +69,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserForAreaCodeWithRole(String areaCode, UserRole role) {
         List<User> users = userRepository.findByAreaCode(areaCode);
-        User manager = users.stream().filter(user -> user.getRoles().contains(role.name())).findFirst().orElse(null);
-        return manager;
+        return users.stream()
+                .filter(user -> user.getRoles().contains(role.name()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    @Override
+    public List<String> getAllUsersWithRole(UserRole userRole) {
+        log.info("Fetching all user with role: {}", userRole);
+        if (userRole == null) {
+            return userRepository.findAll().stream()
+                    .map(User::getUsername)
+                    .collect(Collectors.toList());
+        }
+
+        return userRepository.findAll().stream()
+                .filter(user -> user.getRoles().contains(userRole == UserRole.SURVEYOR? "PARTNER" : userRole.name()))
+                .map(User::getUsername)
+                .collect(Collectors.toList());
     }
 
 }

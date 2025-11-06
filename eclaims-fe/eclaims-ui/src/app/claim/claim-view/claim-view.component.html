@@ -41,6 +41,10 @@
                 <p><strong>Manager Email:</strong> {{ claim.assignment.manager.email }}</p>
                 <p><strong>Manager Phone:</strong> {{ claim.assignment.manager.phoneNumber }}</p>
                 <p><strong>Assigned At:</strong> {{ claim.assignment.assignedAt | date:'yyyy-MM-dd HH:mm' }}</p>
+
+                <p><strong>Assigned Adjuster:</strong> {{ claim.assignment.adjuster.firstName }} {{ claim.assignment.adjuster.lastName }}</p>
+
+                <p><strong>Assigned Surveyor:</strong> {{ claim.assignment.surveyor.firstName }} {{ claim.assignment.surveyor.lastName }}</p>
             </div>
         </div>
 

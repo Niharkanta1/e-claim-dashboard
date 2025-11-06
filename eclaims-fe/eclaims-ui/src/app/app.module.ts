@@ -19,6 +19,8 @@ import { ClaimListComponent } from "./claim/claim-list/claim-list.component";
 import { ClaimViewComponent } from "./claim/claim-view/claim-view.component";
 import { AuthInterceptor } from "./auth/auth-jwt.interceptor";
 import { ClaimProgressComponent } from './claim/claim-progress/claim-progress.component';
+import { OverviewComponent } from './management/overview/overview.component';
+import { ReportsComponent } from './management/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { ClaimProgressComponent } from './claim/claim-progress/claim-progress.co
     ClaimListComponent,
     ClaimViewComponent,
     ClaimProgressComponent,
+    OverviewComponent,
+    ReportsComponent,
   ],
   imports: [
     BrowserModule,

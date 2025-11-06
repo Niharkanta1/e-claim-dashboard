@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
-import { ClaimService } from "../claim.service";
+import { ClaimService } from "../../service/claim.service";
 import { Router } from "@angular/router";
 
 @Component({

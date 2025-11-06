@@ -4,6 +4,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.eclaims.app.user.entity.User;
 import com.eclaims.app.user.enums.UserRole;
 
+import java.util.List;
+
 public interface UserService {
     User getUser(Long id);
 
@@ -16,4 +18,6 @@ public interface UserService {
     void deleteUser(Long userId);
 
     User getUserForAreaCodeWithRole(String areaCode, UserRole role);
+
+    List<String> getAllUsersWithRole(UserRole userRole);
 }

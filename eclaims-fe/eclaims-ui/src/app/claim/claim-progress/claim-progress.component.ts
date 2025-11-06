@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ClaimService } from "../claim.service";
+import { ClaimService } from "../../service/claim.service";
 
 @Component({
   selector: "app-claim-progress",

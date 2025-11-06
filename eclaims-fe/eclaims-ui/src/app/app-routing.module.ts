@@ -13,6 +13,8 @@ import { ClaimViewComponent } from "./claim/claim-view/claim-view.component";
 import { ClaimFormComponent } from "./claim/claim-form/claim-form.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { ClaimProgressComponent } from "./claim/claim-progress/claim-progress.component";
+import { OverviewComponent } from "./management/overview/overview.component";
+import { ReportsComponent } from "./management/reports/reports.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -31,6 +33,12 @@ const routes: Routes = [
   {
     path: "manager-dashboard",
     component: ManagerDashboardComponent,
+    children: [
+      { path: "", component: OverviewComponent },
+      { path: "claims", component: ClaimListComponent },
+      { path: "claim/:id", component: ClaimViewComponent },
+      { path: "reports", component: ReportsComponent },
+    ],
     canActivate: [AuthGuard],
   },
   {

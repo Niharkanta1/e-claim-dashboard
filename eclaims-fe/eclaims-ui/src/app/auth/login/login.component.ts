@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
-import { AuthService } from "../auth.service";
+import { AuthService } from "../../service/auth.service";
 import { Router } from "@angular/router";
 
 @Component({
@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.auth.logout();
+  }
 
   onLogin() {
     this.auth.login(this.username, this.password).subscribe({

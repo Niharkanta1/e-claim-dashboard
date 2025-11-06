@@ -1,11 +1,17 @@
 <div class="container">
-    <h2 class="text-primary text-center mb-4">Your Submitted Claims</h2>
+    <h2 class="text-primary text-center mb-4"><span>
+            {{ role === 'MANAGER' ? 'All Submitted Claims' : 'Your Submitted Claims' }}
+        </span></h2>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Claim ID</th>
                 <th>Policy Number</th>
                 <th>Claim Type</th>
+                <ng-container *ngIf="role === 'MANAGER'">
+                    <th>Adjuster</th>
+                    <th>Surveyor</th>
+                </ng-container>
                 <th>Status</th>
                 <th>View</th>
             </tr>
@@ -15,11 +21,43 @@
                 <td>{{ c.claimId }}</td>
                 <td>{{ c.policyNumber }}</td>
                 <td>{{ c.claimType }}</td>
+                <ng-container *ngIf="role === 'MANAGER'">
+                    <td *ngIf="c.assignment.adjuster; else editAdjuster">
+                        <span>{{c.assignment.adjuster.username | titlecase}} </span>
+                        <i class="bi bi-trash text-danger ms-2" style="cursor: pointer;  float: right;" title="Remove Adjuster"
+                            (click)="removeAssignment(c.claimId, 'ADJUSTER')"></i>
+                    </td>
+                    <ng-template #editAdjuster>
+                        <td>
+                            <select class="form-select"
+                                (change)="assignUser(c.claimId, $event.target.value, 'ADJUSTER')">
+                                <option value="" disabled selected>Select Adjuster</option>
+                                <option *ngFor="let adjuster of adjusters" [value]="adjuster">{{ adjuster | titlecase }}
+                                </option>
+                            </select>
+                        </td>
+                    </ng-template>
+                    <td *ngIf="c.assignment.surveyor; else editSurveyor">
+                        <span> {{ c.assignment.surveyor.username | titlecase}} </span>
+                        <i class="bi bi-trash text-danger ms-2" style="cursor: pointer; float: right;" title="Remove Surveyor"
+                            (click)="removeAssignment(c.claimId, 'SURVEYOR')"></i>
+                    </td>
+                    <ng-template #editSurveyor>
+                        <td>
+                            <select class="form-select"
+                                (change)="assignUser(c.claimId, $event.target.value, 'SURVEYOR')">
+                                <option value="" disabled selected>Select Surveyor</option>
+                                <option *ngFor="let surveyor of surveyors" [value]="surveyor">{{ surveyor | titlecase }}
+                                </option>
+                            </select>
+                        </td>
+                    </ng-template>
+                </ng-container>
                 <td>{{ c.status }}</td>
                 <td><button (click)="viewClaim(c.claimId)" class="btn btn-link">View</button></td>
             </tr>
         </tbody>
         <p *ngIf="claims.length == 0">No Claims are available...</p>
     </table>
-   
+
 </div>
