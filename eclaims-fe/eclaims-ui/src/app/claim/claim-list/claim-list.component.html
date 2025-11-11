@@ -1,17 +1,21 @@
-<div class="container">
+<div class="container" style="max-width: 80%;">
     <h2 class="text-primary text-center mb-4"><span>
-            {{ role === 'MANAGER' ? 'All Submitted Claims' : 'Your Submitted Claims' }}
+            {{ role === 'MANAGER' ? 'All Submitted Claims' : role === 'CUSTOMER'? 'Your Submitted Claims' : 'Assigned
+            Claims'}}
         </span></h2>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Claim ID</th>
                 <th>Policy Number</th>
+                 <th>Policy Type</th>
                 <th>Claim Type</th>
+                <th>Customer Name</th>
                 <ng-container *ngIf="role === 'MANAGER'">
                     <th>Adjuster</th>
                     <th>Surveyor</th>
                 </ng-container>
+                <th>Created At</th>
                 <th>Status</th>
                 <th>View</th>
             </tr>
@@ -20,12 +24,14 @@
             <tr *ngFor="let c of claims">
                 <td>{{ c.claimId }}</td>
                 <td>{{ c.policyNumber }}</td>
+                <td>{{ c.policyType }}</td>
                 <td>{{ c.claimType }}</td>
+                <td>{{ c.customer.firstName }} {{ c.customer.lastName }}</td>
                 <ng-container *ngIf="role === 'MANAGER'">
                     <td *ngIf="c.assignment.adjuster; else editAdjuster">
                         <span>{{c.assignment.adjuster.username | titlecase}} </span>
-                        <i class="bi bi-trash text-danger ms-2" style="cursor: pointer;  float: right;" title="Remove Adjuster"
-                            (click)="removeAssignment(c.claimId, 'ADJUSTER')"></i>
+                        <i class="bi bi-trash text-danger ms-2" style="cursor: pointer;  float: right;"
+                            title="Remove Adjuster" (click)="removeAssignment(c.claimId, 'ADJUSTER')"></i>
                     </td>
                     <ng-template #editAdjuster>
                         <td>
@@ -39,8 +45,8 @@
                     </ng-template>
                     <td *ngIf="c.assignment.surveyor; else editSurveyor">
                         <span> {{ c.assignment.surveyor.username | titlecase}} </span>
-                        <i class="bi bi-trash text-danger ms-2" style="cursor: pointer; float: right;" title="Remove Surveyor"
-                            (click)="removeAssignment(c.claimId, 'SURVEYOR')"></i>
+                        <i class="bi bi-trash text-danger ms-2" style="cursor: pointer; float: right;"
+                            title="Remove Surveyor" (click)="removeAssignment(c.claimId, 'SURVEYOR')"></i>
                     </td>
                     <ng-template #editSurveyor>
                         <td>
@@ -53,11 +59,11 @@
                         </td>
                     </ng-template>
                 </ng-container>
+                <td>{{ c.createdAt | date:'yyyy-MM-dd HH:mm' }}</td>
                 <td>{{ c.status }}</td>
                 <td><button (click)="viewClaim(c.claimId)" class="btn btn-link">View</button></td>
             </tr>
         </tbody>
         <p *ngIf="claims.length == 0">No Claims are available...</p>
     </table>
-
 </div>

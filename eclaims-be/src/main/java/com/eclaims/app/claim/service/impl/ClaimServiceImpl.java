@@ -6,8 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -75,7 +78,7 @@ public class ClaimServiceImpl implements ClaimService {
     private ClaimEvent getClaimEvent(Claim claim, User user, EventType eventType) {
         ClaimEvent event = new ClaimEvent();
         event.setEventTime(LocalDateTime.now());
-        event.setUserId(user != null? user.getId() : null);
+        event.setUserId(user != null ? user.getId() : null);
         event.setClaim(claim);
         event.setEvent(eventType);
         return event;
@@ -84,7 +87,7 @@ public class ClaimServiceImpl implements ClaimService {
     @Override
     public Claim assignToUser(Long claimId, UserRole role, String userName) {
         Optional<Claim> claimOptional = claimRepository.findById(claimId);
-        if(claimOptional.isPresent()) {
+        if (claimOptional.isPresent()) {
             User user = userService.getUser(userName);
             Claim claim = claimOptional.get();
             switch (role) {
@@ -108,7 +111,7 @@ public class ClaimServiceImpl implements ClaimService {
     @Override
     public Claim removeAssignment(Long claimId, UserRole userRole) {
         Optional<Claim> claimOptional = claimRepository.findById(claimId);
-        if(claimOptional.isPresent()) {
+        if (claimOptional.isPresent()) {
             Claim claim = claimOptional.get();
             switch (userRole) {
                 case ADJUSTER:
@@ -132,19 +135,22 @@ public class ClaimServiceImpl implements ClaimService {
         ClaimAssignment assignment = new ClaimAssignment();
         User manager = userService.getUserForAreaCodeWithRole(claim.getCustomer().getAreaCode(), UserRole.MANAGER);
         log.info("Auto Assigning MANAGER: {} to the claim: {}", manager.getFirstName(), claim.getClaimId());
+
         assignment.setManager(manager);
         claim.getEvents().add(getClaimEvent(claim, manager, EventType.MANAGER_ASSIGNED));
-        
+
         User adjuster = userService.getUserForAreaCodeWithRole(claim.getCustomer().getAreaCode(), UserRole.ADJUSTER);
         log.info("Auto Assigning ADJUSTER: {} to the claim: {}", manager.getFirstName(), claim.getClaimId());
+
         assignment.setAdjuster(adjuster);
         claim.getEvents().add(getClaimEvent(claim, adjuster, EventType.ADJUSTER_ASSIGNED));
 
         User surveyor = userService.getUserForAreaCodeWithRole(claim.getCustomer().getAreaCode(), UserRole.SURVEYOR);
         log.info("Auto Assigning SURVEYOR: {} to the claim: {}", manager.getFirstName(), claim.getClaimId());
+
         assignment.setSurveyor(surveyor);
         claim.getEvents().add(getClaimEvent(claim, surveyor, EventType.SURVEYOR_ASSIGNED));
-        
+
         assignment.setClaim(claim);
         assignment.setAssignedAt(LocalDateTime.now());
         claim.setAssignment(assignment);
@@ -169,13 +175,13 @@ public class ClaimServiceImpl implements ClaimService {
             case "MANAGER":
                 claimList = getAllClaims();
                 break;
-            case "AJUSTER":
+            case "ADJUSTER":
                 claimList = claimRepository.findAllByAssignmentAdjuster(user);
                 break;
             default:
                 throw new RuntimeException("Invalid user access");
         }
-
+        claimList.sort(Comparator.comparing(Claim::getCreatedAt).reversed());
         return claimList;
     }
 
@@ -189,5 +195,30 @@ public class ClaimServiceImpl implements ClaimService {
             claim = claimRepository.findById(id).orElseThrow(() -> new RuntimeException("Claim is not found"));
         }
         return claim;
+    }
+
+    @Override
+    public Claim updateClaim(Long claimId, ClaimStatus claimStatus) {
+        log.info("Updating claim with claimId: {} and Status: {}", claimId, claimStatus);
+        Claim claim = claimRepository.findById(claimId).orElseThrow(() -> new RuntimeException("Claim not found"));
+        claim.setStatus(claimStatus);
+        User user = authUtil.getCurrentUser();
+        switch (claimStatus) {
+            case SURVEY_COMPLETED:
+                claim.getEvents().add(getClaimEvent(claim, user, EventType.SURVEY_COMPLETED));
+                break;
+            case APPROVED:
+                claim.getEvents().add(getClaimEvent(claim, user, EventType.APPROVED));
+                break;
+            case SETTLED:
+                claim.getEvents().add(getClaimEvent(claim, user, EventType.SETTLED));
+                break;
+            case REJECTED:
+                claim.getEvents().add(getClaimEvent(claim, user, EventType.REJECTED));
+                break;
+            default:
+                throw new RuntimeException("Invalid claim status");
+        }
+        return claimRepository.save(claim);
     }
 }

@@ -1,1 +1,13 @@
-<p>partner-dashboard works!</p>
+<div class="dashboard">
+  <h2 class="margin-left-10 margin-top-10">Surveyor Dashboard</h2>
+
+  <nav class="menu margin-left-10">
+    <a routerLink="claims" routerLinkActive="active">Assigned Claims</a> |
+    <a routerLink="completed-surveys" routerLinkActive="active">Completed Surveys</a> |
+    <a routerLink="reports" routerLinkActive="active">Reports</a>
+  </nav>
+
+  <hr />
+
+  <router-outlet></router-outlet>
+</div>

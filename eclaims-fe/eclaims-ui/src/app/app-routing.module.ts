@@ -44,11 +44,19 @@ const routes: Routes = [
   {
     path: "adjuster-dashboard",
     component: AdjusterDashboardComponent,
+    children: [
+      { path: "", component: ClaimListComponent },
+      { path: "claim/:id", component: ClaimViewComponent },
+    ],
     canActivate: [AuthGuard],
   },
   {
     path: "partner-dashboard",
     component: PartnerDashboardComponent,
+    children: [
+      { path: "", component: ClaimListComponent },
+      { path: "claim/:id", component: ClaimViewComponent },
+    ],
     canActivate: [AuthGuard],
   },
   { path: "aboutus", component: AboutUsComponent },

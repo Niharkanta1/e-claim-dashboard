@@ -47,6 +47,10 @@ export class ClaimService {
       {}
     );
   }
+
+  updateClaim(id: any, status: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/${id}?status=${status}`, {});
+  }
 }
 
 export interface ClaimRequest {

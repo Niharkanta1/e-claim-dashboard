@@ -31,30 +31,73 @@
         </div>
 
         <!-- Assignment Information -->
-        <div class="card mb-4">
+        <div class="card mb-4" *ngIf="role === 'CUSTOMER'">
             <div class="card-header bg-success text-white">
                 <h5 class="mb-0">Assignment Details</h5>
             </div>
             <div class="card-body">
                 <p><strong>Assignment ID:</strong> {{ claim.assignment.assignmentId }}</p>
-                <p><strong>Assigned Manager:</strong> {{ claim.assignment.manager.firstName }} {{ claim.assignment.manager.lastName }}</p>
+                <p><strong>Assigned Manager:</strong> {{ claim.assignment.manager.firstName }} {{
+                    claim.assignment.manager.lastName }}</p>
                 <p><strong>Manager Email:</strong> {{ claim.assignment.manager.email }}</p>
                 <p><strong>Manager Phone:</strong> {{ claim.assignment.manager.phoneNumber }}</p>
                 <p><strong>Assigned At:</strong> {{ claim.assignment.assignedAt | date:'yyyy-MM-dd HH:mm' }}</p>
 
-                <p><strong>Assigned Adjuster:</strong> {{ claim.assignment.adjuster.firstName }} {{ claim.assignment.adjuster.lastName }}</p>
+                <p><strong>Assigned Adjuster:</strong> {{ claim.assignment.adjuster.firstName }} {{
+                    claim.assignment.adjuster.lastName }}</p>
 
-                <p><strong>Assigned Surveyor:</strong> {{ claim.assignment.surveyor.firstName }} {{ claim.assignment.surveyor.lastName }}</p>
+                <p><strong>Assigned Surveyor:</strong> {{ claim.assignment.surveyor.firstName }} {{
+                    claim.assignment.surveyor.lastName }}</p>
             </div>
         </div>
 
         <!-- Document Paths -->
         <div class="card mb-4">
             <div class="card-header bg-warning text-white">
-                <h5 class="mb-0">Documents</h5>
+                <h5 class="mb-0">Documents And Images</h5>
             </div>
             <div class="card-body">
-                <p><strong>Document Paths:</strong> {{ claim.documentPaths || 'No documents uploaded' }}</p>
+                <!-- Check the user role or a condition -->
+                <div *ngIf=" role==='CUSTOMER'; else otherRoles">
+                    <!-- For customer, show document paths -->
+                    <p><strong>Document Uploaded:</strong></p>
+                    <ul>
+                        <li *ngFor="let doc of customerDocuments">
+                            {{ doc }}
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- For other roles, show images -->
+                <ng-template #otherRoles>
+                    <div class="row mt-3">
+                        <div class="col-md-4 mb-3">
+                            <img src="" alt="Car accident front damage" class="img-fluid rounded shadow-sm border" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <img src="" alt="Rear car damage after accident"
+                                class="img-fluid rounded shadow-sm border" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <img src="" alt="Side collision damage" class="img-fluid rounded shadow-sm border" />
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-end">
+            <div class="btn-group" role="group" aria-label="Approval Actions">
+                <button *ngIf="(role === 'ADJUSTER' && claim.status === 'SURVEY_COMPLETED') || (role === 'PARTNER' && claim.status === 'SUBMITTED' )" class="btn btn-success mr-2"
+                    (click)="confirmAction('approve')">
+                    Approve
+                </button>
+                <button *ngIf="role === 'MANAGER' && claim.status === 'APPROVED'" class="btn btn-success mr-2" (click)="confirmAction('settle')">
+                    Settle
+                </button>
+                <button *ngIf="canRejectable()" class="btn btn-danger" (click)="confirmAction('reject')">
+                    Reject
+                </button>
             </div>
         </div>
 

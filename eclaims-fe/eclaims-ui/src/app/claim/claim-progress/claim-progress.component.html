@@ -26,37 +26,37 @@
 
                         <li class="list-group-item">
                             <strong>Submitted: </strong>
-                            <span class="float-end">{{ claim.createdAt | date: 'yyyy-MM-dd HH:mm' }}</span>
+                            <span class="float-end">{{ claim.createdAt | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.assignedAt">
                             <strong>Incient Manager Assigned: </strong>
-                            <span class="float-end">{{ claim.assignment.assignedAt | date: 'yyyy-MM-dd HH:mm' }}</span>
+                            <span class="float-end">{{ claim.assignment.assignedAt | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.assignedAt">
                             <strong>Assigned To Adjuster: </strong>
-                            <span class="float-end"></span>
+                            <span class="float-end">{{ getEventDate('ADJUSTER_ASSIGNED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
                         
-                        <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.assignedAt">
+                        <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.surveyor">
                             <strong>Assigned To Partner Garage: </strong>
-                            <span class="float-end"></span>
+                            <span class="float-end">{{ getEventDate('SURVEYOR_ASSIGNED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item">
                             <strong>Survey Completed: </strong>
-                            <span class="float-end"></span>
+                            <span class="float-end">{{ getEventDate('SURVEY_COMPLETED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item">
                             <strong>Approved: </strong>
-                            <span class="float-end"></span>
+                            <span class="float-end">{{ getEventDate('APPROVED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item">
                             <strong>Settled: </strong>
-                            <span class="float-end"></span>
+                            <span class="float-end">{{ getEventDate('SETTLED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
                     </ul>
                 </div>
