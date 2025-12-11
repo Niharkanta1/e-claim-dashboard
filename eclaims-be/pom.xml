@@ -10,9 +10,9 @@
 	<description>Monolithic version of e-claim for POC</description>
 
 	<properties>
-		<java.version>8</java.version>
-		<spring.boot.version>2.7.18</spring.boot.version>
-		<spring-cloud.version>2021.0.7</spring-cloud.version>
+		<java.version>17</java.version>
+		<spring.boot.version>3.5.8</spring.boot.version>
+		<spring-cloud.version>2024.0.0</spring-cloud.version>
 	</properties>
 
 	<dependencyManagement>
@@ -95,9 +95,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.7.0</version>
+		    <groupId>org.springdoc</groupId>
+		    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+		    <version>2.6.0</version>
 		</dependency>
 
 		<!-- TEST -->
