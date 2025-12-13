@@ -51,7 +51,8 @@ export class ClaimListComponent implements OnInit {
   }
 
   viewClaim(claimId: number) {
-    this.router.navigate(["/customer-dashboard/claim", claimId]);
+    let path = getRouteBasedOnRole(this.role);
+    this.router.navigate([`/${path}/claim`, claimId]);
   }
 
   assignUser(claimId: number, value: any, role: string) {
@@ -78,5 +79,19 @@ export class ClaimListComponent implements OnInit {
         console.error("Error removing assignment: ", err);
       },
     });
+  }
+}
+function getRouteBasedOnRole(role: string) {
+  switch (role) {
+    case "CUSTOMER":
+      return "customer-dashboard";
+    case "ADJUSTER":
+      return "adjuster-dashboard";
+    case "PARTNER":
+      return "partner-dashboard";
+    case "MANAGER":
+      return "manager-dashboard";
+    default:
+      return "";
   }
 }
