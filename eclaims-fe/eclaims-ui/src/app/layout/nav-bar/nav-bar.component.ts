@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/service/auth.service";
 import { ThemeService } from "src/app/service/theme.service";
+import { LANGUAGE_OPTIONS, Language, TranslationService } from "src/app/i18n/translation.service";
 
 @Component({
     selector: "app-nav-bar",
@@ -10,7 +11,9 @@ import { ThemeService } from "src/app/service/theme.service";
     standalone: false
 })
 export class NavBarComponent implements OnInit {
-  constructor(public auth: AuthService, private router: Router, public theme: ThemeService) {}
+  constructor(public auth: AuthService, private router: Router, public theme: ThemeService, public translations: TranslationService) {}
+
+  readonly languages = LANGUAGE_OPTIONS;
 
   userLoggedIn: boolean = false;
   user: any;
@@ -40,5 +43,9 @@ export class NavBarComponent implements OnInit {
 
   toggleTheme(): void {
     this.theme.toggle();
+  }
+
+  setLanguage(language: Language): void {
+    this.translations.setLanguage(language);
   }
 }

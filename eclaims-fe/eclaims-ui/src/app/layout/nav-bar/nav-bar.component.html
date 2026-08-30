@@ -10,22 +10,22 @@
     data-bs-target="#navbarNav"
     aria-controls="navbarNav"
     aria-expanded="false"
-    aria-label="Toggle navigation">
+    [attr.aria-label]="'nav.toggleNavigation' | translate">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarNav">
 
     <ul class="navbar-nav me-auto" *ngIf="userLoggedIn">
-      <li class="nav-item"><a class="nav-link" routerLink="/policies">Policies</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/services">Services</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/profile">User Profile</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/policies">{{ 'nav.policies' | translate }}</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/services">{{ 'nav.services' | translate }}</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/profile">{{ 'nav.profile' | translate }}</a></li>
     </ul>
 
     <ul class="navbar-nav me-auto" *ngIf="!userLoggedIn">
-      <li class="nav-item"><a class="nav-link" routerLink="/aboutus">About Us</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/products">Products</a></li>
-      <li class="nav-item"><a class="nav-link" routerLink="/support">Support</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/aboutus">{{ 'nav.about' | translate }}</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/products">{{ 'nav.products' | translate }}</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/support">{{ 'nav.support' | translate }}</a></li>
     </ul>
 
     <div class="d-flex align-items-center account-area ml-auto">
@@ -33,18 +33,22 @@
         type="button"
         class="theme-toggle"
         (click)="toggleTheme()"
-        [attr.aria-label]="theme.isNight ? 'Switch to day mode' : 'Switch to night mode'"
-        [attr.title]="theme.isNight ? 'Switch to day mode' : 'Switch to night mode'">
+        [attr.aria-label]="(theme.isNight ? 'nav.dayMode' : 'nav.nightMode') | translate"
+        [attr.title]="(theme.isNight ? 'nav.dayMode' : 'nav.nightMode') | translate">
         <i class="bi" [class.bi-sun-fill]="theme.isNight" [class.bi-moon-stars-fill]="!theme.isNight"></i>
       </button>
-      <div *ngIf="userLoggedIn">
+      <div class="account-actions" *ngIf="userLoggedIn">
         <span class="user-label mr-3">{{ user.username | titlecase }} <small>{{user.role}}</small></span>
-        <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
+        <button class="btn btn-outline-light btn-sm" (click)="logout()">{{ 'nav.logout' | translate }}</button>
       </div>
-      <div *ngIf="!userLoggedIn">
+      <div class="account-actions" *ngIf="!userLoggedIn">
         <span class="user-label mr-3">{{ user.username | titlecase }}</span>
-        <button class="btn btn-outline-light btn-sm" (click)="login()">Login</button>
+        <button class="btn btn-outline-light btn-sm" (click)="login()">{{ 'nav.login' | translate }}</button>
       </div>
+      <label class="sr-only" for="language-select">{{ 'nav.language' | translate }}</label>
+      <select id="language-select" class="form-control form-control-sm ml-3" [value]="translations.language" (change)="setLanguage($event.target.value)">
+        <option *ngFor="let language of languages" [value]="language.code">{{ language.label }}</option>
+      </select>
     </div>
 
   </div>

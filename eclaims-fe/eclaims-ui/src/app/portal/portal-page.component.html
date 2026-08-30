@@ -1,87 +1,71 @@
 <main class="portal-page">
   <header class="page-heading">
     <div>
-      <span class="eyebrow">e-Claims member portal</span>
-      <h1 *ngIf="pageKey === 'policies'">Policies</h1>
-      <h1 *ngIf="pageKey === 'services'">Services</h1>
-      <h1 *ngIf="pageKey === 'profile'">User Profile</h1>
-      <h1 *ngIf="pageKey === 'garages'">Partner Garages</h1>
-      <h1 *ngIf="pageKey === 'rental'">Rental Vehicles</h1>
-      <p *ngIf="pageKey === 'policies'">Review your active cover and policy documents in one place.</p>
-      <p *ngIf="pageKey === 'services'">Quick access to the support and claims services available to you.</p>
-      <p *ngIf="pageKey === 'profile'">Keep your contact details current so claim updates reach you.</p>
-      <p *ngIf="pageKey === 'garages'">Find trusted repair partners for your vehicle claim.</p>
-      <p *ngIf="pageKey === 'rental'">Browse replacement vehicles while your car is being repaired.</p>
+      <span class="eyebrow">{{ 'portal.eyebrow' | translate }}</span>
+      <h1 *ngIf="pageKey === 'policies'">{{ 'portal.policies' | translate }}</h1><h1 *ngIf="pageKey === 'services'">{{ 'portal.services' | translate }}</h1><h1 *ngIf="pageKey === 'profile'">{{ 'portal.profile' | translate }}</h1><h1 *ngIf="pageKey === 'garages'">{{ 'portal.garages' | translate }}</h1><h1 *ngIf="pageKey === 'rental'">{{ 'portal.rentals' | translate }}</h1>
+      <p *ngIf="pageKey === 'policies'">{{ 'portal.policiesText' | translate }}</p><p *ngIf="pageKey === 'services'">{{ 'portal.servicesText' | translate }}</p><p *ngIf="pageKey === 'profile'">{{ 'portal.profileText' | translate }}</p><p *ngIf="pageKey === 'garages'">{{ 'portal.garagesText' | translate }}</p><p *ngIf="pageKey === 'rental'">{{ 'portal.rentalsText' | translate }}</p>
     </div>
-    <div class="status-chip"><span></span> Account active</div>
+    <div class="status-chip"><span></span> {{ 'portal.active' | translate }}</div>
   </header>
 
   <section *ngIf="pageKey === 'policies'" class="content-grid">
     <article class="info-card featured-card">
-      <span class="card-label">Primary cover</span>
-      <h2>Comprehensive Motor Cover</h2>
-      <p class="muted">Policy ECL-20481 · Active until 12 March 2027</p>
-      <div class="card-row"><span>Annual premium</span><strong>$1,248.00</strong></div>
-      <div class="card-row"><span>Renewal date</span><strong>12 Mar 2027</strong></div>
-      <button class="btn btn-primary mt-3">View policy document</button>
+      <span class="card-label">{{ 'portal.primaryCover' | translate }}</span><h2>{{ 'portal.comprehensive' | translate }}</h2><p class="muted">{{ 'portal.activeUntil' | translate }}</p><div class="card-row"><span>{{ 'portal.annualPremium' | translate }}</span><strong>$1,248.00</strong></div><div class="card-row"><span>{{ 'portal.renewalDate' | translate }}</span><strong>12 Mar 2027</strong></div><button class="btn btn-primary mt-3">{{ 'portal.viewPolicy' | translate }}</button>
     </article>
     <article class="info-card">
-      <span class="card-label">Included benefits</span>
+      <span class="card-label">{{ 'portal.benefits' | translate }}</span>
       <ul class="feature-list">
-        <li>Accidental damage and theft protection</li>
-        <li>24/7 roadside assistance</li>
-        <li>Courtesy vehicle while repairs are underway</li>
-        <li>Glass and windscreen cover</li>
+        <li>{{ 'portal.accidentTheft' | translate }}</li><li>{{ 'portal.roadside' | translate }}</li><li>{{ 'portal.courtesy' | translate }}</li><li>{{ 'portal.glass' | translate }}</li>
       </ul>
     </article>
   </section>
 
   <section *ngIf="pageKey === 'services'" class="content-grid service-grid">
     <article class="info-card" *ngFor="let service of [
-      { title: 'Make a claim', text: 'Report an incident and track every step online.', action: 'Start a claim', link: '/customer-dashboard/new-claim' },
-      { title: 'Track a claim', text: 'See the latest status, documents, and next steps.', action: 'View my claims', link: '/customer-dashboard/claims' },
-      { title: 'Find a repair partner', text: 'Choose a trusted garage from our partner network.', action: 'Find a garage', link: '/customer-dashboard/partner-garage' },
-      { title: 'Arrange a rental', text: 'Explore replacement vehicles during your repair.', action: 'Browse rentals', link: '/customer-dashboard/rental' }
+      { title: 'portal.makeClaim', text: 'portal.makeClaimText', action: 'portal.startClaim', link: '/customer-dashboard/new-claim' },
+      { title: 'portal.trackClaim', text: 'portal.trackClaimText', action: 'portal.viewClaims', link: '/customer-dashboard/claims' },
+      { title: 'portal.findPartner', text: 'portal.findPartnerText', action: 'portal.findGarage', link: '/customer-dashboard/partner-garage' },
+      { title: 'portal.arrangeRental', text: 'portal.arrangeRentalText', action: 'portal.browseRentals', link: '/customer-dashboard/rental' }
     ]">
       <span class="service-icon">{{ service.title.charAt(0) }}</span>
-      <h2>{{ service.title }}</h2>
-      <p>{{ service.text }}</p>
-      <a class="btn btn-outline-primary" [routerLink]="service.link">{{ service.action }}</a>
+      <h2>{{ service.title | translate }}</h2>
+      <p>{{ service.text | translate }}</p>
+      <a class="btn btn-outline-primary" [routerLink]="service.link">{{ service.action | translate }}</a>
     </article>
   </section>
 
   <section *ngIf="pageKey === 'profile'" class="profile-layout">
     <article class="info-card profile-card">
       <div class="avatar">{{ (profile.fullName || 'U').charAt(0).toUpperCase() }}</div>
-      <h2>{{ profile.fullName || 'Your profile' }}</h2>
-      <p class="muted">{{ user.role || 'Member' }} account</p>
-      <div class="profile-summary"><span>Member since</span><strong>January 2024</strong></div>
-      <div class="profile-summary"><span>Account status</span><strong class="text-success">Verified</strong></div>
+      <h2>{{ profile.fullName || ('portal.yourProfile' | translate) }}</h2>
+      <p class="muted">{{ user.role || ('portal.member' | translate) }} {{ 'portal.account' | translate }}</p>
+      <div class="profile-summary"><span>{{ 'portal.memberSince' | translate }}</span><strong>{{ 'portal.january2024' | translate }}</strong></div>
+      <div class="profile-summary"><span>{{ 'portal.accountStatus' | translate }}</span><strong class="text-success">{{ 'portal.verified' | translate }}</strong></div>
     </article>
     <form class="info-card" (ngSubmit)="saveProfile()">
-      <span class="card-label">Contact details</span>
-      <div class="form-group"><label for="fullName">Full name</label><input id="fullName" name="fullName" class="form-control" [(ngModel)]="profile.fullName"></div>
-      <div class="form-group"><label for="email">Email address</label><input id="email" name="email" type="email" class="form-control" [(ngModel)]="profile.email"></div>
-      <div class="form-group"><label for="phone">Phone number</label><input id="phone" name="phone" class="form-control" placeholder="Add a phone number" [(ngModel)]="profile.phone"></div>
-      <div class="form-group"><label for="contact">Preferred contact</label><select id="contact" name="contact" class="form-control" [(ngModel)]="profile.preferredContact"><option>Email</option><option>Phone</option></select></div>
-      <button class="btn btn-primary" type="submit">Save changes</button>
-      <span class="save-message" *ngIf="saved">Profile changes saved for this session.</span>
+      <span class="card-label">{{ 'portal.contactDetails' | translate }}</span>
+      <div class="form-group"><label for="fullName">{{ 'portal.fullName' | translate }}</label><input id="fullName" name="fullName" class="form-control" [(ngModel)]="profile.fullName"></div>
+      <div class="form-group"><label for="email">{{ 'support.email' | translate }}</label><input id="email" name="email" type="email" class="form-control" [(ngModel)]="profile.email"></div>
+      <div class="form-group"><label for="phone">{{ 'portal.phone' | translate }}</label><input id="phone" name="phone" class="form-control" [placeholder]="'portal.phonePlaceholder' | translate" [(ngModel)]="profile.phone"></div>
+      <div class="form-group"><label for="contact">{{ 'portal.preferredContact' | translate }}</label><select id="contact" name="contact" class="form-control" [(ngModel)]="profile.preferredContact"><option>{{ 'support.email' | translate }}</option><option>{{ 'portal.phone' | translate }}</option></select></div>
+      <button class="btn btn-primary" type="submit">{{ 'portal.save' | translate }}</button>
+      <span class="save-message" *ngIf="saved">{{ 'portal.saved' | translate }}</span>
     </form>
   </section>
 
   <section *ngIf="pageKey === 'garages' || pageKey === 'rental'" class="directory-grid">
     <article class="info-card directory-card" *ngFor="let item of pageKey === 'garages' ? [
-      { name: 'Northside Auto Care', detail: '12.4 km · Repairs and bodywork', tag: 'Next available today' },
-      { name: 'Riverside Motors', detail: '18.7 km · Certified collision repair', tag: 'Highly rated' },
-      { name: 'Cityline Vehicle Centre', detail: '22.1 km · Mechanical and glass', tag: 'Open Saturday' }
+      { name: 'portal.northside', detail: 'portal.northsideDetail', tag: 'portal.nextToday' },
+      { name: 'portal.riverside', detail: 'portal.riversideDetail', tag: 'portal.highlyRated' },
+      { name: 'portal.cityline', detail: 'portal.citylineDetail', tag: 'portal.openSaturday' }
     ] : [
-      { name: 'Compact hatchback', detail: 'From $34/day · 5 seats · Automatic', tag: 'Available now' },
-      { name: 'Family SUV', detail: 'From $59/day · 7 seats · Automatic', tag: 'Popular choice' },
-      { name: 'Hybrid sedan', detail: 'From $47/day · 5 seats · Automatic', tag: 'Low emissions' }
+      { name: 'portal.compact', detail: 'portal.compactDetail', tag: 'portal.availableNow' },
+      { name: 'portal.suv', detail: 'portal.suvDetail', tag: 'portal.popularChoice' },
+      { name: 'portal.hybrid', detail: 'portal.hybridDetail', tag: 'portal.lowEmissions' }
     ]">
       <div class="directory-mark">{{ pageKey === 'garages' ? 'G' : 'R' }}</div>
-      <div class="directory-copy"><h2>{{ item.name }}</h2><p>{{ item.detail }}</p><span class="availability">{{ item.tag }}</span></div>
-      <button class="btn btn-outline-primary">{{ pageKey === 'garages' ? 'View garage' : 'View vehicle' }}</button>
+      <div class="directory-copy"><h2>{{ item.name | translate }}</h2><p>{{ item.detail | translate }}</p><span class="availability">{{ item.tag | translate }}</span></div>
+      <button class="btn btn-outline-primary">{{ (pageKey === 'garages' ? 'portal.viewGarage' : 'portal.viewVehicle') | translate }}</button>
     </article>
   </section>
 </main>

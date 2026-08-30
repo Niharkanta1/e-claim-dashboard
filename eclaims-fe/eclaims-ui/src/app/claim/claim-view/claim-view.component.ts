@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ClaimService } from "../../service/claim.service";
 import { AuthService } from "src/app/service/auth.service";
+import { TranslationService } from "../../i18n/translation.service";
 
 @Component({
     selector: "app-claim-view",
@@ -17,7 +18,8 @@ export class ClaimViewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private claimService: ClaimService,
-    private authService: AuthService
+    private authService: AuthService,
+    private translations: TranslationService
   ) {}
 
   ngOnInit() {
@@ -43,13 +45,13 @@ export class ClaimViewComponent implements OnInit {
     let message = "";
     switch (action) {
       case "approve":
-        message = "Are you sure you want to approve this claim?";
+        message = this.translations.translate("claim.confirmApprove");
         break;
       case "settle":
-        message = "Are you sure you want to settle this claim?";
+        message = this.translations.translate("claim.confirmSettle");
         break;
       case "reject":
-        message = "Are you sure you want to reject this claim?";
+        message = this.translations.translate("claim.confirmReject");
         break;
     }
 

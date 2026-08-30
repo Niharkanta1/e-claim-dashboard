@@ -1,61 +1,61 @@
     <div class="container my-5">
         <div *ngIf="claim" class="p-4">
-            <h2 class="mb-4">Claim Status Flow</h2>
+            <h2 class="mb-4">{{ 'claim.statusFlow' | translate }}</h2>
 
             <!-- Status Flow -->
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">Claim Status Timeline</h5>
+                    <h5 class="mb-0">{{ 'claim.statusTimeline' | translate }}</h5>
                 </div>
                 <div class="card-body">
                     
                     <ul class="list-group list-group-flush">
                         <!-- Claim Id -->
                         <li class="list-group-item">
-                            <strong>Claim Id: </strong>
+                            <strong>{{ 'claim.id' | translate }}: </strong>
                             <span class="float-end">
-                                {{ claim.claimId }} <button (click)="showClaimDetails()" class="btn btn-outline-primary btn-sm align-right">View Details</button>
+                                {{ claim.claimId }} <button (click)="showClaimDetails()" class="btn btn-outline-primary btn-sm align-right">{{ 'claim.viewDetails' | translate }}</button>
                             </span> 
                         </li>
 
                         <!-- Status -->
                         <li class="list-group-item">
-                            <strong>Current Status: </strong>
+                            <strong>{{ 'claim.currentStatus' | translate }}: </strong>
                             <span class="float-end">{{ claim.status }}</span>
                         </li>
 
                         <li class="list-group-item">
-                            <strong>Submitted: </strong>
+                            <strong>{{ 'claim.submitted' | translate }}: </strong>
                             <span class="float-end">{{ claim.createdAt | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.assignedAt">
-                            <strong>Incient Manager Assigned: </strong>
+                            <strong>{{ 'claim.managerAssigned' | translate }}: </strong>
                             <span class="float-end">{{ claim.assignment.assignedAt | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.assignedAt">
-                            <strong>Assigned To Adjuster: </strong>
+                            <strong>{{ 'claim.adjusterAssigned' | translate }}: </strong>
                             <span class="float-end">{{ getEventDate('ADJUSTER_ASSIGNED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
                         
                         <li class="list-group-item" *ngIf="claim.assignment && claim.assignment.surveyor">
-                            <strong>Assigned To Partner Garage: </strong>
+                            <strong>{{ 'claim.partnerAssigned' | translate }}: </strong>
                             <span class="float-end">{{ getEventDate('SURVEYOR_ASSIGNED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item">
-                            <strong>Survey Completed: </strong>
+                            <strong>{{ 'claim.surveyCompleted' | translate }}: </strong>
                             <span class="float-end">{{ getEventDate('SURVEY_COMPLETED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item">
-                            <strong>Approved: </strong>
+                            <strong>{{ 'claim.approved' | translate }}: </strong>
                             <span class="float-end">{{ getEventDate('APPROVED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
 
                         <li class="list-group-item">
-                            <strong>Settled: </strong>
+                            <strong>{{ 'claim.settled' | translate }}: </strong>
                             <span class="float-end">{{ getEventDate('SETTLED') | date:'yyyy-MM-dd HH:mm' }}</span>
                         </li>
                     </ul>

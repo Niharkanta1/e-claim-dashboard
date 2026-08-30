@@ -1,24 +1,24 @@
 <div class="page-wrapper">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h2 class="card-title text-danger mb-3">Support</h2>
-            <p>If you need help, please fill out the form below or reach us at <strong>support&#64;example.com</strong>.</p>
+            <h2 class="card-title text-danger mb-3">{{ 'support.title' | translate }}</h2>
+            <p>{{ 'support.help' | translate }} <strong>support&#64;example.com</strong>.</p>
 
             <form class="mt-4">
                 <div class="mb-3">
-                    <label for="name" class="form-label">Your Name</label>
-                    <input type="text" id="name" class="form-control" placeholder="Enter your name">
+                    <label for="name" class="form-label">{{ 'support.name' | translate }}</label>
+                    <input type="text" id="name" class="form-control" [placeholder]="'support.namePlaceholder' | translate">
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email Address</label>
-                    <input type="email" id="email" class="form-control" placeholder="you@example.com">
+                    <label for="email" class="form-label">{{ 'support.email' | translate }}</label>
+                    <input type="email" id="email" class="form-control" [placeholder]="'support.emailPlaceholder' | translate">
                 </div>
                 <div class="mb-3">
-                    <label for="message" class="form-label">Message</label>
+                    <label for="message" class="form-label">{{ 'support.message' | translate }}</label>
                     <textarea id="message" class="form-control" rows="4"
-                        placeholder="Describe your issue..."></textarea>
+                        [placeholder]="'support.messagePlaceholder' | translate"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">{{ 'support.submit' | translate }}</button>
             </form>
         </div>
     </div>

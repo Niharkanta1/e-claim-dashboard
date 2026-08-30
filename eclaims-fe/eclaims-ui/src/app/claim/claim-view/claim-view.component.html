@@ -1,52 +1,52 @@
 <div class="container my-5">
     <div *ngIf="claim" class="p-4">
-        <h2 class="mb-4">Claim Details</h2>
+        <h2 class="mb-4">{{ 'claim.details' | translate }}</h2>
 
         <!-- Claim Basic Information -->
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">Claim Information</h5>
+                <h5 class="mb-0">{{ 'claim.information' | translate }}</h5>
             </div>
             <div class="card-body">
-                <p><strong>Claim ID:</strong> {{ claim.claimId }}</p>
-                <p><strong>Policy Number:</strong> {{ claim.policyNumber }}</p>
-                <p><strong>Claim Type:</strong> {{ claim.claimType }}</p>
-                <p><strong>Status:</strong> {{ claim.status }}</p>
-                <p><strong>Description:</strong> {{ claim.description }}</p>
-                <p><strong>Date of Incident:</strong> {{ claim.dateOfIncident | date:'yyyy-MM-dd' }}</p>
+                <p><strong>{{ 'claim.id' | translate }}:</strong> {{ claim.claimId }}</p>
+                <p><strong>{{ 'claim.policyNumber' | translate }}:</strong> {{ claim.policyNumber }}</p>
+                <p><strong>{{ 'claims.claimType' | translate }}:</strong> {{ claim.claimType }}</p>
+                <p><strong>{{ 'claims.status' | translate }}:</strong> {{ claim.status }}</p>
+                <p><strong>{{ 'claim.description' | translate }}:</strong> {{ claim.description }}</p>
+                <p><strong>{{ 'claim.incidentDate' | translate }}:</strong> {{ claim.dateOfIncident | date:'yyyy-MM-dd' }}</p>
             </div>
         </div>
 
         <!-- Customer Information -->
         <div class="card mb-4">
             <div class="card-header bg-info text-white">
-                <h5 class="mb-0">Customer Details</h5>
+                <h5 class="mb-0">{{ 'claim.customerDetails' | translate }}</h5>
             </div>
             <div class="card-body">
-                <p><strong>Customer Name:</strong> {{ claim.customer.firstName }} {{ claim.customer.lastName }}</p>
-                <p><strong>Customer Email:</strong> {{ claim.customer.email }}</p>
-                <p><strong>Customer Phone:</strong> {{ claim.customer.phoneNumber }}</p>
-                <p><strong>Customer Address:</strong> {{ claim.customer.address }}</p>
+                <p><strong>{{ 'claim.customerName' | translate }}:</strong> {{ claim.customer.firstName }} {{ claim.customer.lastName }}</p>
+                <p><strong>{{ 'claim.customerEmail' | translate }}:</strong> {{ claim.customer.email }}</p>
+                <p><strong>{{ 'claim.customerPhone' | translate }}:</strong> {{ claim.customer.phoneNumber }}</p>
+                <p><strong>{{ 'claim.customerAddress' | translate }}:</strong> {{ claim.customer.address }}</p>
             </div>
         </div>
 
         <!-- Assignment Information -->
         <div class="card mb-4" *ngIf="role === 'CUSTOMER'">
             <div class="card-header bg-success text-white">
-                <h5 class="mb-0">Assignment Details</h5>
+                <h5 class="mb-0">{{ 'claim.assignmentDetails' | translate }}</h5>
             </div>
             <div class="card-body">
-                <p><strong>Assignment ID:</strong> {{ claim.assignment.assignmentId }}</p>
-                <p><strong>Assigned Manager:</strong> {{ claim.assignment.manager.firstName }} {{
+                <p><strong>{{ 'claim.assignmentId' | translate }}:</strong> {{ claim.assignment.assignmentId }}</p>
+                <p><strong>{{ 'claim.assignedManager' | translate }}:</strong> {{ claim.assignment.manager.firstName }} {{
                     claim.assignment.manager.lastName }}</p>
-                <p><strong>Manager Email:</strong> {{ claim.assignment.manager.email }}</p>
-                <p><strong>Manager Phone:</strong> {{ claim.assignment.manager.phoneNumber }}</p>
-                <p><strong>Assigned At:</strong> {{ claim.assignment.assignedAt | date:'yyyy-MM-dd HH:mm' }}</p>
+                <p><strong>{{ 'claim.managerEmail' | translate }}:</strong> {{ claim.assignment.manager.email }}</p>
+                <p><strong>{{ 'claim.managerPhone' | translate }}:</strong> {{ claim.assignment.manager.phoneNumber }}</p>
+                <p><strong>{{ 'claim.assignedAt' | translate }}:</strong> {{ claim.assignment.assignedAt | date:'yyyy-MM-dd HH:mm' }}</p>
 
-                <p><strong>Assigned Adjuster:</strong> {{ claim.assignment.adjuster.firstName }} {{
+                <p><strong>{{ 'claim.assignedAdjuster' | translate }}:</strong> {{ claim.assignment.adjuster.firstName }} {{
                     claim.assignment.adjuster.lastName }}</p>
 
-                <p><strong>Assigned Surveyor:</strong> {{ claim.assignment.surveyor.firstName }} {{
+                <p><strong>{{ 'claim.assignedSurveyor' | translate }}:</strong> {{ claim.assignment.surveyor.firstName }} {{
                     claim.assignment.surveyor.lastName }}</p>
             </div>
         </div>
@@ -54,13 +54,13 @@
         <!-- Document Paths -->
         <div class="card mb-4">
             <div class="card-header bg-warning text-white">
-                <h5 class="mb-0">Documents And Images</h5>
+                <h5 class="mb-0">{{ 'claim.documentsImages' | translate }}</h5>
             </div>
             <div class="card-body">
                 <!-- Check the user role or a condition -->
                 <div *ngIf=" role==='CUSTOMER'; else otherRoles">
                     <!-- For customer, show document paths -->
-                    <p><strong>Document Uploaded:</strong></p>
+                    <p><strong>{{ 'claim.documentUploaded' | translate }}:</strong></p>
                     <ul>
                         <li *ngFor="let doc of customerDocuments">
                             {{ doc }}
@@ -72,14 +72,14 @@
                 <ng-template #otherRoles>
                     <div class="row mt-3">
                         <div class="col-md-4 mb-3">
-                            <img src="" alt="Car accident front damage" class="img-fluid rounded shadow-sm border" />
+                            <img src="" [alt]="'claim.frontDamage' | translate" class="img-fluid rounded shadow-sm border" />
                         </div>
                         <div class="col-md-4 mb-3">
-                            <img src="" alt="Rear car damage after accident"
+                            <img src="" [alt]="'claim.rearDamage' | translate"
                                 class="img-fluid rounded shadow-sm border" />
                         </div>
                         <div class="col-md-4 mb-3">
-                            <img src="" alt="Side collision damage" class="img-fluid rounded shadow-sm border" />
+                            <img src="" [alt]="'claim.sideDamage' | translate" class="img-fluid rounded shadow-sm border" />
                         </div>
                     </div>
                 </ng-template>
@@ -87,16 +87,16 @@
         </div>
 
         <div class="mt-4 d-flex justify-content-end">
-            <div class="btn-group" role="group" aria-label="Approval Actions">
+            <div class="btn-group" role="group" [attr.aria-label]="'claim.approvalActions' | translate">
                 <button *ngIf="(role === 'ADJUSTER' && claim.status === 'SURVEY_COMPLETED') || (role === 'PARTNER' && claim.status === 'SUBMITTED' )" class="btn btn-success mr-2"
                     (click)="confirmAction('approve')">
-                    Approve
+                    {{ 'claim.approve' | translate }}
                 </button>
                 <button *ngIf="role === 'MANAGER' && claim.status === 'APPROVED'" class="btn btn-success mr-2" (click)="confirmAction('settle')">
-                    Settle
+                    {{ 'claim.settle' | translate }}
                 </button>
                 <button *ngIf="canRejectable()" class="btn btn-danger" (click)="confirmAction('reject')">
-                    Reject
+                    {{ 'claim.reject' | translate }}
                 </button>
             </div>
         </div>

@@ -9,18 +9,18 @@ import { Component, OnInit } from "@angular/core";
 export class ProductsComponent implements OnInit {
   products = [
     {
-      name: "Product A",
-      description: "High-quality item for everyday use.",
+      name: "products.productA",
+      description: "products.productADescription",
       image: "https://via.placeholder.com/150",
     },
     {
-      name: "Product B",
-      description: "Reliable and durable design for professionals.",
+      name: "products.productB",
+      description: "products.productBDescription",
       image: "https://via.placeholder.com/150",
     },
     {
-      name: "Product C",
-      description: "Affordable and efficient, great value for money.",
+      name: "products.productC",
+      description: "products.productCDescription",
       image: "https://via.placeholder.com/150",
     },
   ];

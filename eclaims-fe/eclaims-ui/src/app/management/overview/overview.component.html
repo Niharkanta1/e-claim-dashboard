@@ -1,11 +1,11 @@
 <div class="container mt-4">
-    <h3 class="text-primary text-center mb-4">Claims Overview</h3>
+    <h3 class="text-primary text-center mb-4">{{ 'overview.title' | translate }}</h3>
 
     <div class="row text-center mb-4">
         <!-- Total Claims -->
         <div class="col-md-2">
             <div class="card stats-card bg-light shadow-sm p-3 rounded">
-                <h5>Total Claims</h5>
+                <h5>{{ 'overview.total' | translate }}</h5>
                 <h2>{{ totalClaims }}</h2>
             </div>
         </div>
@@ -13,7 +13,7 @@
         <!-- Submitted Claims -->
         <div class="col-md-2">
             <div class="card stats-card bg-light shadow-sm p-3 rounded">
-                <h5>Submitted</h5>
+                <h5>{{ 'overview.submitted' | translate }}</h5>
                 <h2>{{ submiited }}</h2>
             </div>
         </div>
@@ -21,7 +21,7 @@
         <!-- In Progress -->
         <div class="col-md-2">
             <div class="card stats-card bg-light shadow-sm p-3 rounded">
-                <h5>In Progress</h5>
+                <h5>{{ 'overview.inProgress' | translate }}</h5>
                 <h2>{{ inprogress }}</h2>
             </div>
         </div>
@@ -29,7 +29,7 @@
         <!-- Survey Completed -->
         <div class="col-md-2">
             <div class="card stats-card bg-light shadow-sm p-3 rounded">
-                <h5>Survey Completed</h5>
+                <h5>{{ 'overview.surveyCompleted' | translate }}</h5>
                 <h2>{{ surveyCompleted }}</h2>
             </div>
         </div>
@@ -37,7 +37,7 @@
         <!-- Approved -->
         <div class="col-md-2">
             <div class="card stats-card bg-light shadow-sm p-3 rounded">
-                <h5>Approved</h5>
+                <h5>{{ 'overview.approved' | translate }}</h5>
                 <h2>{{ approved }}</h2>
             </div>
         </div>
@@ -45,7 +45,7 @@
         <!-- Settled -->
         <div class="col-md-2">
             <div class="card stats-card bg-light shadow-sm p-3 rounded">
-                <h5>Settled</h5>
+                <h5>{{ 'overview.settled' | translate }}</h5>
                 <h2>{{ settled }}</h2>
             </div>
         </div>
@@ -53,8 +53,8 @@
 
 
     <div class="text-center mt-4">
-        <button routerLink="claims" class="btn btn-primary m-2">View All Claims</button>
-        <button routerLink="#" [disabled]="true" class="btn btn-secondary m-2">Assign Claims</button>
-        <button routerLink="reports" class="btn btn-success m-2">View Reports</button>
+        <button routerLink="claims" class="btn btn-primary m-2">{{ 'overview.viewAll' | translate }}</button>
+        <button routerLink="#" [disabled]="true" class="btn btn-secondary m-2">{{ 'overview.assign' | translate }}</button>
+        <button routerLink="reports" class="btn btn-success m-2">{{ 'overview.viewReports' | translate }}</button>
     </div>
 </div>

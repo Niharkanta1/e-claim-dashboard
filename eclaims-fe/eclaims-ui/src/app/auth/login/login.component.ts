@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { AuthService } from "../../service/auth.service";
 import { Router } from "@angular/router";
+import { TranslationService } from "../../i18n/translation.service";
 
 @Component({
     selector: "app-login",
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   password = "";
   error = "";
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private router: Router, private translations: TranslationService) {}
 
   ngOnInit(): void {
     this.auth.logout();
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
         const role = user.role.toLowerCase();
         this.router.navigate([`/${role}-dashboard`]);
       },
-      error: () => (this.error = "Invalid credentials"),
+      error: () => (this.error = this.translations.translate("login.invalidCredentials")),
     });
   }
 }

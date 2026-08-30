@@ -1,17 +1,17 @@
 <div class="page-wrapper">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h2 class="card-title text-success mb-4">Our Products</h2>
+            <h2 class="card-title text-success mb-4">{{ 'products.title' | translate }}</h2>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <div class="col" *ngFor="let product of products">
                     <div class="card h-100 border-0 shadow-sm">
-                        <img [src]="product.image" class="card-img-top" alt="{{product.name}}">
+                        <img [src]="product.image" class="card-img-top" [alt]="product.name | translate">
                         <div class="card-body">
-                            <h5 class="card-title">{{product.name}}</h5>
-                            <p class="card-text">{{product.description}}</p>
+                            <h5 class="card-title">{{ product.name | translate }}</h5>
+                            <p class="card-text">{{ product.description | translate }}</p>
                         </div>
                         <div class="card-footer text-center">
-                            <button class="btn btn-outline-primary btn-sm">View Details</button>
+                            <button class="btn btn-outline-primary btn-sm">{{ 'products.view' | translate }}</button>
                         </div>
                     </div>
                 </div>

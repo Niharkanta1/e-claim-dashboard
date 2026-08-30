@@ -22,6 +22,7 @@ import { ClaimProgressComponent } from './claim/claim-progress/claim-progress.co
 import { OverviewComponent } from './management/overview/overview.component';
 import { ReportsComponent } from './management/reports/reports.component';
 import { PortalPageComponent } from './portal/portal-page.component';
+import { TranslatePipe } from "./i18n/translate.pipe";
 
 @NgModule({ declarations: [
         AppComponent,
@@ -41,6 +42,7 @@ import { PortalPageComponent } from './portal/portal-page.component';
         OverviewComponent,
         ReportsComponent,
         PortalPageComponent,
+        TranslatePipe,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
