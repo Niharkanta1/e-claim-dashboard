@@ -10,7 +10,22 @@
   --surface: #ffffff;
   --canvas: #f4f8f7;
   --line: #dce8e5;
+  --nav-bg: #18323b;
   --shadow: 0 12px 32px rgba(24, 50, 59, .07);
+}
+
+body.theme-night {
+  --ink: #e6f0ee;
+  --muted: #a5b9b7;
+  --brand: #53c4b7;
+  --brand-dark: #8be0d5;
+  --brand-soft: #173f3d;
+  --accent: #f2b65e;
+  --surface: #1d2c31;
+  --canvas: #121d21;
+  --line: #30464a;
+  --nav-bg: #0b1518;
+  --shadow: 0 12px 32px rgba(0, 0, 0, .22);
 }
 
 * { box-sizing: border-box; }
@@ -41,6 +56,34 @@ a:hover { color: var(--brand-dark); }
 .table td, .table th { padding: .85rem .75rem; vertical-align: middle; }
 .table tbody tr { transition: background-color .2s ease; }
 .table tbody tr:hover { background: #f5fbfa; }
+.dashboard { padding: 28px 24px 44px; }
+.dashboard h2 { margin-bottom: 18px; }
+.dashboard .menu { display: flex; flex-wrap: wrap; gap: 8px; }
+.dashboard .menu a {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  padding: 7px 12px;
+  text-decoration: none;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.dashboard .menu a:hover, .dashboard .menu a.active { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-dark); }
+.dashboard hr { border-color: var(--line); margin: 24px 10px; }
+.list-group-item { background: var(--surface); border-color: var(--line); color: var(--ink); }
+.card-header h5 { color: inherit; }
+body.theme-night .table thead th { background: #254044; }
+body.theme-night .table tbody tr:hover { background: #24383c; }
+body.theme-night .table, body.theme-night .card { color: var(--ink); }
+body.theme-night .form-control, body.theme-night .form-select { background: #1d2c31; border-color: var(--line); color: var(--ink); }
+body.theme-night .form-control::placeholder { color: #829795; }
+body.theme-night .bg-light { background: var(--surface) !important; color: var(--ink); }
+body.theme-night .bg-primary { background: var(--brand-dark) !important; }
+body.theme-night .bg-info { background: #287f8a !important; }
+body.theme-night .bg-success { background: #287c61 !important; }
+body.theme-night .bg-warning { background: #a96f20 !important; }
+body.theme-night .list-group-item strong { color: var(--brand); }
 .page-heading { animation: page-enter .45s ease both; }
 
 @keyframes page-enter {

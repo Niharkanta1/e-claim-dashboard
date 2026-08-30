@@ -29,6 +29,14 @@
     </ul>
 
     <div class="d-flex align-items-center account-area ml-auto">
+      <button
+        type="button"
+        class="theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-label]="theme.isNight ? 'Switch to day mode' : 'Switch to night mode'"
+        [attr.title]="theme.isNight ? 'Switch to day mode' : 'Switch to night mode'">
+        <i class="bi" [class.bi-sun-fill]="theme.isNight" [class.bi-moon-stars-fill]="!theme.isNight"></i>
+      </button>
       <div *ngIf="userLoggedIn">
         <span class="user-label mr-3">{{ user.username | titlecase }} <small>{{user.role}}</small></span>
         <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>

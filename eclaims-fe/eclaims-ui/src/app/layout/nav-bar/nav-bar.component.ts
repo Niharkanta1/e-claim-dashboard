@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/service/auth.service";
+import { ThemeService } from "src/app/service/theme.service";
 
 @Component({
     selector: "app-nav-bar",
@@ -9,7 +10,7 @@ import { AuthService } from "src/app/service/auth.service";
     standalone: false
 })
 export class NavBarComponent implements OnInit {
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router, public theme: ThemeService) {}
 
   userLoggedIn: boolean = false;
   user: any;
@@ -35,5 +36,9 @@ export class NavBarComponent implements OnInit {
   login() {
     this.auth.logout();
     this.router.navigate(["/login"]);
+  }
+
+  toggleTheme(): void {
+    this.theme.toggle();
   }
 }
