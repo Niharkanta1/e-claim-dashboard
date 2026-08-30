@@ -88,14 +88,15 @@ class SecurityUnitTest {
     }
 
     @Test
-    void registerUserAlsoHandlesNullPassword() {
+    void registerUserRejectsNullPassword() {
         User user = domainUser("alice", null, "CUSTOMER");
-        when(passwordEncoder.encode(null)).thenReturn("encoded-null");
-        when(userService.registerUser(user)).thenReturn(user);
 
-        userDetailsService.registerUser(user);
+        assertThatThrownBy(() -> userDetailsService.registerUser(user))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("Username and password are required");
 
-        assertThat(user.getPassword()).isEqualTo("encoded-null");
+        verify(passwordEncoder, org.mockito.Mockito.never()).encode(org.mockito.ArgumentMatchers.any());
+        verify(userService, org.mockito.Mockito.never()).registerUser(org.mockito.ArgumentMatchers.any());
     }
 
     @Test
