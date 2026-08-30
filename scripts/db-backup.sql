@@ -1,39 +1,251 @@
--- H2 2.1.214;
-;             
-CREATE USER IF NOT EXISTS "SA" SALT '1b030cf614ff7b03' HASH '498595c4d64b3dc8033eeebc8400ce73d44cad28e182ce3389afc727b1c8aa97' ADMIN;         
-CREATE SEQUENCE "PUBLIC"."HIBERNATE_SEQUENCE" START WITH 1 RESTART WITH 42;   
-CREATE CACHED TABLE "PUBLIC"."APP_USER"(
-    "ID" BIGINT NOT NULL,
-    "PASSWORD" CHARACTER VARYING(255),
-    "USERNAME" CHARACTER VARYING(255),
-    "ADDRESS" CHARACTER VARYING(255),
-    "AREA_CODE" CHARACTER VARYING(255),
-    "EMAIL" CHARACTER VARYING(255),
-    "FIRST_NAME" CHARACTER VARYING(255),
-    "LAST_NAME" CHARACTER VARYING(255),
-    "PHONE_NUMBER" CHARACTER VARYING(255)
-);    
-ALTER TABLE "PUBLIC"."APP_USER" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_7" PRIMARY KEY("ID");     
--- 12 +/- SELECT COUNT(*) FROM PUBLIC.APP_USER;               
-INSERT INTO "PUBLIC"."APP_USER" VALUES
-(2, '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62', 'nihar', 'Miyapur, Hyderabad', '1101', 'nihar@example.com', 'Nihar', 'Tripathy', '8877249876'),
-(3, '$2a$10$FaWXcwlEhnBJRs4Em7IhyuDb.YCFWE7KZHxhiwundib6K2Nwu3ste', 'kanta', 'Ameenpur, Hyderabad', '1101', 'kanta@example.com', 'Kanta', 'Partner', '9987624567'),
-(4, '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62', 'ravi', 'A-45 Green Park, Delhi', '1102', 'ravi.patel@example.com', 'Ravi', 'Patel', '9876543210'),
-(5, '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62', 'meera', 'Hinjewadi Phase 2, Pune', '1101', 'meera.sharma@example.com', 'Meera', 'Sharma', '9876000001'),
-(6, '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62', 'anil', 'Sector 5, Gurgaon', '1102', 'anil.kumar@example.com', 'Anil', 'Kumar', '9001122233'),
-(7, '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62', 'suresh', 'BTM Layout, Bangalore', '1101', 'suresh.iyer@example.com', 'Suresh', 'Iyer', '9822114455'),
-(8, '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62', 'priya', 'Powai, Mumbai', '1102', 'priya.nair@example.com', 'Priya', 'Nair', '9898989898'),
-(9, '$2a$10$VcJ5.2gQg21aTFr6vfDtMuk7CxmS9mtUuvXaOsLh0u7lTDnTQBiyy', 'ramesh', 'Powai, Mumbai', '1101', 'ramesh.nair@example.com', 'Ramesh', 'Nair', '9898989898'),
-(10, '$2a$10$Cq2xkLgbBLUp0tEZisKRO.5aJ/OCnkwGOmxRfvQSwfw7quL7o6F4a', 'hitesh', 'Powai, Hyderabad', '1102', 'hitesh.nayak@example.com', 'Hitesh', 'Nayak', '9892389898'),
-(11, '$2a$10$QJhM8GLsRVcyV8KByrMtp.lbi3lA94v9DngXNr8EVSwpZJ2fv4htK', 'ritesh', 'Gachibowli, Hyderabad', '1102', 'ritesh.verma@example.com', 'Ritesh', 'Verma', '9892389898'),
-(12, '$2a$10$jolprhvI3OfedXymQAF6KeyxJ896uxepMHDWJtp8MqK0JJ3M8cKQy', 'santa', 'Hitech, Hyderabad', '1101', 'santa.rahul@example.com', 'Santa', 'Rahul', '9823569898'),
-(13, '$2a$10$1x0c8qsnaDfBgUissKBfN.nX/MlTXSRImzYAkjo1eUjXtIl2R6.oK', 'sunil', 'Madhapur, Hyderabad', '1102', 'sunil.kumar@example.com', 'Sunil', 'Kumar', '9823563228');      
-CREATE CACHED TABLE "PUBLIC"."APP_USER_ROLES"(
-    "APP_USER_ID" BIGINT NOT NULL,
-    "ROLES" CHARACTER VARYING(255)
-);    
--- 12 +/- SELECT COUNT(*) FROM PUBLIC.APP_USER_ROLES;         
-INSERT INTO "PUBLIC"."APP_USER_ROLES" VALUES
+-- ============================================================
+-- H2 DATABASE RESET / RESTORE SCRIPT
+-- H2 2.1.214
+-- ============================================================
+
+SET REFERENTIAL_INTEGRITY FALSE;
+
+-- ============================================================
+-- DROP EXISTING OBJECTS
+-- ============================================================
+
+DROP TABLE IF EXISTS PUBLIC.CLAIM_EVENT;
+DROP TABLE IF EXISTS PUBLIC.CLAIM_ASSIGNMENT;
+DROP TABLE IF EXISTS PUBLIC.APP_USER_ROLES;
+DROP TABLE IF EXISTS PUBLIC.CLAIM;
+DROP TABLE IF EXISTS PUBLIC.APP_USER;
+
+DROP SEQUENCE IF EXISTS PUBLIC.HIBERNATE_SEQUENCE;
+
+-- ============================================================
+-- CREATE HIBERNATE SEQUENCE
+-- ============================================================
+
+CREATE SEQUENCE PUBLIC.HIBERNATE_SEQUENCE
+    START WITH 1
+    RESTART WITH 42;
+
+-- ============================================================
+-- APP_USER
+-- ============================================================
+
+CREATE TABLE PUBLIC.APP_USER (
+    ID BIGINT NOT NULL,
+    PASSWORD VARCHAR(255),
+    USERNAME VARCHAR(255),
+    ADDRESS VARCHAR(255),
+    AREA_CODE VARCHAR(255),
+    EMAIL VARCHAR(255),
+    FIRST_NAME VARCHAR(255),
+    LAST_NAME VARCHAR(255),
+    PHONE_NUMBER VARCHAR(255),
+
+    CONSTRAINT CONSTRAINT_APP_USER_PK
+        PRIMARY KEY (ID)
+);
+
+-- ============================================================
+-- APP_USER_ROLES
+-- ============================================================
+
+CREATE TABLE PUBLIC.APP_USER_ROLES (
+    APP_USER_ID BIGINT NOT NULL,
+    ROLES VARCHAR(255)
+);
+
+-- ============================================================
+-- CLAIM
+-- ============================================================
+
+CREATE TABLE PUBLIC.CLAIM (
+    CLAIM_ID BIGINT NOT NULL,
+    CLAIM_TYPE VARCHAR(255),
+    CONTACT_NUMBER VARCHAR(255),
+    DATE_OF_INCIDENT VARCHAR(255),
+    DESCRIPTION VARCHAR(255),
+    DOCUMENT_PATHS CLOB,
+    FIRST_NAME VARCHAR(255),
+    LAST_NAME VARCHAR(255),
+    POLICY_NUMBER VARCHAR(255),
+    POLICY_TYPE VARCHAR(255),
+    POLICY_USER VARCHAR(255),
+    STATUS INTEGER,
+    CUSTOMER_ID BIGINT,
+    CREATED_AT TIMESTAMP,
+
+    CONSTRAINT CONSTRAINT_CLAIM_PK
+        PRIMARY KEY (CLAIM_ID)
+);
+
+-- ============================================================
+-- CLAIM_ASSIGNMENT
+-- ============================================================
+
+CREATE TABLE PUBLIC.CLAIM_ASSIGNMENT (
+    ASSIGNMENT_ID BIGINT
+        GENERATED BY DEFAULT AS IDENTITY
+        NOT NULL,
+
+    ASSIGNED_AT TIMESTAMP,
+    SURVEYOR_ID BIGINT,
+    ADJUSTER_ID BIGINT,
+    CLAIM_ID BIGINT,
+    MANAGER_ID BIGINT,
+
+    CONSTRAINT CONSTRAINT_CLAIM_ASSIGNMENT_PK
+        PRIMARY KEY (ASSIGNMENT_ID)
+);
+
+-- ============================================================
+-- CLAIM_EVENT
+-- ============================================================
+
+CREATE TABLE PUBLIC.CLAIM_EVENT (
+    ID BIGINT NOT NULL,
+    EVENT VARCHAR(255),
+    EVENT_TIME TIMESTAMP,
+    CLAIM_ID BIGINT,
+    USER_ID BIGINT,
+
+    CONSTRAINT CONSTRAINT_CLAIM_EVENT_PK
+        PRIMARY KEY (ID)
+);
+
+-- ============================================================
+-- INSERT APP_USER
+-- ============================================================
+
+INSERT INTO PUBLIC.APP_USER
+    (ID, PASSWORD, USERNAME, ADDRESS, AREA_CODE, EMAIL,
+     FIRST_NAME, LAST_NAME, PHONE_NUMBER)
+VALUES
+(2,
+ '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62',
+ 'nihar',
+ 'Miyapur, Hyderabad',
+ '1101',
+ 'nihar@example.com',
+ 'Nihar',
+ 'Tripathy',
+ '8877249876'),
+
+(3,
+ '$2a$10$FaWXcwlEhnBJRs4Em7IhyuDb.YCFWE7KZHxhiwundib6K2Nwu3ste',
+ 'kanta',
+ 'Ameenpur, Hyderabad',
+ '1101',
+ 'kanta@example.com',
+ 'Kanta',
+ 'Partner',
+ '9987624567'),
+
+(4,
+ '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62',
+ 'ravi',
+ 'A-45 Green Park, Delhi',
+ '1102',
+ 'ravi.patel@example.com',
+ 'Ravi',
+ 'Patel',
+ '9876543210'),
+
+(5,
+ '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62',
+ 'meera',
+ 'Hinjewadi Phase 2, Pune',
+ '1101',
+ 'meera.sharma@example.com',
+ 'Meera',
+ 'Sharma',
+ '9876000001'),
+
+(6,
+ '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62',
+ 'anil',
+ 'Sector 5, Gurgaon',
+ '1102',
+ 'anil.kumar@example.com',
+ 'Anil',
+ 'Kumar',
+ '9001122233'),
+
+(7,
+ '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62',
+ 'suresh',
+ 'BTM Layout, Bangalore',
+ '1101',
+ 'suresh.iyer@example.com',
+ 'Suresh',
+ 'Iyer',
+ '9822114455'),
+
+(8,
+ '$2a$10$YEl6nqY73PeFnRURKvJ0z.wUwgbFUnKcfRAQjP5OO5wt0KmPuoo62',
+ 'priya',
+ 'Powai, Mumbai',
+ '1102',
+ 'priya.nair@example.com',
+ 'Priya',
+ 'Nair',
+ '9898989898'),
+
+(9,
+ '$2a$10$VcJ5.2gQg21aTFr6vfDtMuk7CxmS9mtUuvXaOsLh0u7lTDnTQBiyy',
+ 'ramesh',
+ 'Powai, Mumbai',
+ '1101',
+ 'ramesh.nair@example.com',
+ 'Ramesh',
+ 'Nair',
+ '9898989898'),
+
+(10,
+ '$2a$10$Cq2xkLgbBLUp0tEZisKRO.5aJ/OCnkwGOmxRfvQSwfw7quL7o6F4a',
+ 'hitesh',
+ 'Powai, Hyderabad',
+ '1102',
+ 'hitesh.nayak@example.com',
+ 'Hitesh',
+ 'Nayak',
+ '9892389898'),
+
+(11,
+ '$2a$10$QJhM8GLsRVcyV8KByrMtp.lbi3lA94v9DngXNr8EVSwpZJ2fv4htK',
+ 'ritesh',
+ 'Gachibowli, Hyderabad',
+ '1102',
+ 'ritesh.verma@example.com',
+ 'Ritesh',
+ 'Verma',
+ '9892389898'),
+
+(12,
+ '$2a$10$jolprhvI3OfedXymQAF6KeyxJ896uxepMHDWJtp8MqK0JJ3M8cKQy',
+ 'santa',
+ 'Hitech, Hyderabad',
+ '1101',
+ 'santa.rahul@example.com',
+ 'Santa',
+ 'Rahul',
+ '9823569898'),
+
+(13,
+ '$2a$10$1x0c8qsnaDfBgUissKBfN.nX/MlTXSRImzYAkjo1eUjXtIl2R6.oK',
+ 'sunil',
+ 'Madhapur, Hyderabad',
+ '1102',
+ 'sunil.kumar@example.com',
+ 'Sunil',
+ 'Kumar',
+ '9823563228');
+
+-- ============================================================
+-- INSERT APP_USER_ROLES
+-- ============================================================
+
+INSERT INTO PUBLIC.APP_USER_ROLES
+    (APP_USER_ID, ROLES)
+VALUES
 (2, 'CUSTOMER'),
 (3, 'PARTNER'),
 (4, 'CUSTOMER'),
@@ -45,80 +257,314 @@ INSERT INTO "PUBLIC"."APP_USER_ROLES" VALUES
 (10, 'ADJUSTER'),
 (11, 'ADJUSTER'),
 (12, 'PARTNER'),
-(13, 'PARTNER');            
-CREATE CACHED TABLE "PUBLIC"."CLAIM_ASSIGNMENT"(
-    "ASSIGNMENT_ID" BIGINT GENERATED BY DEFAULT AS IDENTITY(START WITH 1) NOT NULL,
-    "ASSIGNED_AT" TIMESTAMP,
-    "SURVEYOR_ID" BIGINT,
-    "ADJUSTER_ID" BIGINT,
-    "CLAIM_ID" BIGINT,
-    "MANAGER_ID" BIGINT
-);
-ALTER TABLE "PUBLIC"."CLAIM_ASSIGNMENT" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_F" PRIMARY KEY("ASSIGNMENT_ID");  
--- 4 +/- SELECT COUNT(*) FROM PUBLIC.CLAIM_ASSIGNMENT;        
-INSERT INTO "PUBLIC"."CLAIM_ASSIGNMENT" VALUES
-(15, TIMESTAMP '2025-11-02 21:17:31.867', 6, 9, 14, 5),
-(17, TIMESTAMP '2025-11-02 22:28:46.965', 3, 7, 16, 5),
-(19, TIMESTAMP '2025-11-02 22:33:17.922', 3, 7, 18, 8),
-(22, TIMESTAMP '2025-11-02 22:50:19.617', 3, 7, 20, 8);            
-CREATE CACHED TABLE "PUBLIC"."CLAIM_EVENT"(
-    "ID" BIGINT NOT NULL,
-    "EVENT" CHARACTER VARYING(255),
-    "EVENT_TIME" TIMESTAMP,
-    "CLAIM_ID" BIGINT,
-    "USER_ID" BIGINT
-);    
-ALTER TABLE "PUBLIC"."CLAIM_EVENT" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_5" PRIMARY KEY("ID");  
--- 20 +/- SELECT COUNT(*) FROM PUBLIC.CLAIM_EVENT;            
-INSERT INTO "PUBLIC"."CLAIM_EVENT" VALUES
-(21, 'SUBMITTED', TIMESTAMP '2025-11-02 22:50:19.617', 20, 4),
-(23, 'ADJUSTER_ASSIGNED', TIMESTAMP '2025-11-06 11:40:06.471', 14, 7),
-(24, 'SURVEYOR_ASSIGNED', TIMESTAMP '2025-11-06 11:40:10.257', 14, 3),
-(25, 'ADJUSTER_ASSIGNED', TIMESTAMP '2025-11-06 11:40:26.135', 16, 7),
-(26, 'SURVEYOR_ASSIGNED', TIMESTAMP '2025-11-06 11:40:27.243', 16, 3),
-(27, 'ADJUSTER_ASSIGNED', TIMESTAMP '2025-11-06 11:40:28.469', 18, 7),
-(28, 'SURVEYOR_ASSIGNED', TIMESTAMP '2025-11-06 11:40:30.029', 18, 3),
-(29, 'ADJUSTER_ASSIGNED', TIMESTAMP '2025-11-06 11:40:31.29', 20, 7),
-(30, 'SURVEYOR_ASSIGNED', TIMESTAMP '2025-11-06 11:40:32.502', 20, 3),
-(31, 'ADJUSTER_REMOVED', TIMESTAMP '2025-11-06 12:10:11.86', 14, NULL),
-(32, 'SURVEYOR_REMOVED', TIMESTAMP '2025-11-06 12:10:23.971', 14, NULL),
-(33, 'ADJUSTER_ASSIGNED', TIMESTAMP '2025-11-06 12:23:45.461', 14, 7),
-(34, 'SURVEYOR_ASSIGNED', TIMESTAMP '2025-11-06 12:23:49.405', 14, 3),
-(35, 'ADJUSTER_REMOVED', TIMESTAMP '2025-11-06 12:27:06.71', 14, NULL),
-(36, 'SURVEYOR_REMOVED', TIMESTAMP '2025-11-06 12:27:10.42', 14, NULL),
-(37, 'ADJUSTER_ASSIGNED', TIMESTAMP '2025-11-06 12:27:14.939', 14, 9),
-(38, 'SURVEYOR_ASSIGNED', TIMESTAMP '2025-11-06 12:27:18.084', 14, 6),
-(39, 'SURVEY_COMPLETED', TIMESTAMP '2025-11-11 21:49:58.518', 16, 3),
-(40, 'APPROVED', TIMESTAMP '2025-11-11 22:06:30.629', 16, 7),
-(41, 'SETTLED', TIMESTAMP '2025-11-11 22:09:51.052', 16, 5);             
-CREATE CACHED TABLE "PUBLIC"."CLAIM"(
-    "CLAIM_ID" BIGINT NOT NULL,
-    "CLAIM_TYPE" CHARACTER VARYING(255),
-    "CONTACT_NUMBER" CHARACTER VARYING(255),
-    "DATE_OF_INCIDENT" CHARACTER VARYING(255),
-    "DESCRIPTION" CHARACTER VARYING(255),
-    "DOCUMENT_PATHS" CHARACTER LARGE OBJECT,
-    "FIRST_NAME" CHARACTER VARYING(255),
-    "LAST_NAME" CHARACTER VARYING(255),
-    "POLICY_NUMBER" CHARACTER VARYING(255),
-    "POLICY_TYPE" CHARACTER VARYING(255),
-    "POLICY_USER" CHARACTER VARYING(255),
-    "STATUS" INTEGER,
-    "CUSTOMER_ID" BIGINT,
-    "CREATED_AT" TIMESTAMP
-);               
-ALTER TABLE "PUBLIC"."CLAIM" ADD CONSTRAINT "PUBLIC"."CONSTRAINT_3" PRIMARY KEY("CLAIM_ID");  
--- 4 +/- SELECT COUNT(*) FROM PUBLIC.CLAIM;   
-INSERT INTO "PUBLIC"."CLAIM" VALUES
-(14, 'Accident', '2236534654', '2025-11-01', 'Car Damage', '', 'Nihar', 'Tripathy', '1123547654', 'Life', NULL, 0, 2, TIMESTAMP '2025-11-02 21:17:31.864'),
-(16, 'Theft', '9988654342', '2025-10-30', 'Stolen Vehicle', '', 'Nihar', 'Tripathy', '1124565423', 'Personal Vehicle', NULL, 4, 2, TIMESTAMP '2025-11-02 22:28:46.961'),
-(18, 'Damage', '9987676545', '2025-10-30', 'Some Text', '', 'Ravi', 'Kumar', '3356332234', 'Commercial', NULL, 0, 4, TIMESTAMP '2025-11-02 22:33:17.92'),
-(20, 'Accident', '8876876543', '2025-10-30', 'Accident', '', 'Ravi', 'Kumar', '998834532', 'Commercial', NULL, 0, 4, TIMESTAMP '2025-11-02 22:50:19.615');             
-ALTER TABLE "PUBLIC"."CLAIM" ADD CONSTRAINT "PUBLIC"."FKR3LLH5P9HH10RFSB91N5RFMWX" FOREIGN KEY("CUSTOMER_ID") REFERENCES "PUBLIC"."APP_USER"("ID") NOCHECK;   
-ALTER TABLE "PUBLIC"."CLAIM_ASSIGNMENT" ADD CONSTRAINT "PUBLIC"."FKLFY03Y7IWB84EAUU81BTE78AD" FOREIGN KEY("SURVEYOR_ID") REFERENCES "PUBLIC"."APP_USER"("ID") NOCHECK;        
-ALTER TABLE "PUBLIC"."APP_USER_ROLES" ADD CONSTRAINT "PUBLIC"."FKKWXEXNUDTP5GMT82J0QTYTNOE" FOREIGN KEY("APP_USER_ID") REFERENCES "PUBLIC"."APP_USER"("ID") NOCHECK;          
-ALTER TABLE "PUBLIC"."CLAIM_ASSIGNMENT" ADD CONSTRAINT "PUBLIC"."FKTEIKD20A81J7AD4QL6OP53Y8A" FOREIGN KEY("CLAIM_ID") REFERENCES "PUBLIC"."CLAIM"("CLAIM_ID") NOCHECK;        
-ALTER TABLE "PUBLIC"."CLAIM_EVENT" ADD CONSTRAINT "PUBLIC"."FKJ806UNU3LKJSY9DJ8Q6IPFYU5" FOREIGN KEY("CLAIM_ID") REFERENCES "PUBLIC"."CLAIM"("CLAIM_ID") NOCHECK;             
-ALTER TABLE "PUBLIC"."CLAIM_ASSIGNMENT" ADD CONSTRAINT "PUBLIC"."FK3LMJ9Q0435HL87LYYLOXWLYXB" FOREIGN KEY("ADJUSTER_ID") REFERENCES "PUBLIC"."APP_USER"("ID") NOCHECK;        
-ALTER TABLE "PUBLIC"."CLAIM_ASSIGNMENT" ADD CONSTRAINT "PUBLIC"."FKSJ11YNS5L9AUAUB01EOE94CIU" FOREIGN KEY("MANAGER_ID") REFERENCES "PUBLIC"."APP_USER"("ID") NOCHECK;         
-ALTER TABLE "PUBLIC"."CLAIM_EVENT" ADD CONSTRAINT "PUBLIC"."FKN1M936GPK6B6C1GRI1SUQ812P" FOREIGN KEY("USER_ID") REFERENCES "PUBLIC"."APP_USER"("ID") NOCHECK; 
+(13, 'PARTNER');
+
+-- ============================================================
+-- INSERT CLAIM
+-- ============================================================
+
+INSERT INTO PUBLIC.CLAIM
+    (CLAIM_ID, CLAIM_TYPE, CONTACT_NUMBER, DATE_OF_INCIDENT,
+     DESCRIPTION, DOCUMENT_PATHS, FIRST_NAME, LAST_NAME,
+     POLICY_NUMBER, POLICY_TYPE, POLICY_USER, STATUS,
+     CUSTOMER_ID, CREATED_AT)
+VALUES
+(14,
+ 'Accident',
+ '2236534654',
+ '2025-11-01',
+ 'Car Damage',
+ '',
+ 'Nihar',
+ 'Tripathy',
+ '1123547654',
+ 'Life',
+ NULL,
+ 0,
+ 2,
+ TIMESTAMP '2025-11-02 21:17:31.864'),
+
+(16,
+ 'Theft',
+ '9988654342',
+ '2025-10-30',
+ 'Stolen Vehicle',
+ '',
+ 'Nihar',
+ 'Tripathy',
+ '1124565423',
+ 'Personal Vehicle',
+ NULL,
+ 4,
+ 2,
+ TIMESTAMP '2025-11-02 22:28:46.961'),
+
+(18,
+ 'Damage',
+ '9987676545',
+ '2025-10-30',
+ 'Some Text',
+ '',
+ 'Ravi',
+ 'Kumar',
+ '3356332234',
+ 'Commercial',
+ NULL,
+ 0,
+ 4,
+ TIMESTAMP '2025-11-02 22:33:17.920'),
+
+(20,
+ 'Accident',
+ '8876876543',
+ '2025-10-30',
+ 'Accident',
+ '',
+ 'Ravi',
+ 'Kumar',
+ '998834532',
+ 'Commercial',
+ NULL,
+ 0,
+ 4,
+ TIMESTAMP '2025-11-02 22:50:19.615');
+
+-- ============================================================
+-- INSERT CLAIM_ASSIGNMENT
+-- ============================================================
+
+INSERT INTO PUBLIC.CLAIM_ASSIGNMENT
+    (ASSIGNMENT_ID, ASSIGNED_AT, SURVEYOR_ID,
+     ADJUSTER_ID, CLAIM_ID, MANAGER_ID)
+VALUES
+(15,
+ TIMESTAMP '2025-11-02 21:17:31.867',
+ 6,
+ 9,
+ 14,
+ 5),
+
+(17,
+ TIMESTAMP '2025-11-02 22:28:46.965',
+ 3,
+ 7,
+ 16,
+ 5),
+
+(19,
+ TIMESTAMP '2025-11-02 22:33:17.922',
+ 3,
+ 7,
+ 18,
+ 8),
+
+(22,
+ TIMESTAMP '2025-11-02 22:50:19.617',
+ 3,
+ 7,
+ 20,
+ 8);
+
+-- ============================================================
+-- INSERT CLAIM_EVENT
+-- ============================================================
+
+INSERT INTO PUBLIC.CLAIM_EVENT
+    (ID, EVENT, EVENT_TIME, CLAIM_ID, USER_ID)
+VALUES
+(21,
+ 'SUBMITTED',
+ TIMESTAMP '2025-11-02 22:50:19.617',
+ 20,
+ 4),
+
+(23,
+ 'ADJUSTER_ASSIGNED',
+ TIMESTAMP '2025-11-06 11:40:06.471',
+ 14,
+ 7),
+
+(24,
+ 'SURVEYOR_ASSIGNED',
+ TIMESTAMP '2025-11-06 11:40:10.257',
+ 14,
+ 3),
+
+(25,
+ 'ADJUSTER_ASSIGNED',
+ TIMESTAMP '2025-11-06 11:40:26.135',
+ 16,
+ 7),
+
+(26,
+ 'SURVEYOR_ASSIGNED',
+ TIMESTAMP '2025-11-06 11:40:27.243',
+ 16,
+ 3),
+
+(27,
+ 'ADJUSTER_ASSIGNED',
+ TIMESTAMP '2025-11-06 11:40:28.469',
+ 18,
+ 7),
+
+(28,
+ 'SURVEYOR_ASSIGNED',
+ TIMESTAMP '2025-11-06 11:40:30.029',
+ 18,
+ 3),
+
+(29,
+ 'ADJUSTER_ASSIGNED',
+ TIMESTAMP '2025-11-06 11:40:31.290',
+ 20,
+ 7),
+
+(30,
+ 'SURVEYOR_ASSIGNED',
+ TIMESTAMP '2025-11-06 11:40:32.502',
+ 20,
+ 3),
+
+(31,
+ 'ADJUSTER_REMOVED',
+ TIMESTAMP '2025-11-06 12:10:11.860',
+ 14,
+ NULL),
+
+(32,
+ 'SURVEYOR_REMOVED',
+ TIMESTAMP '2025-11-06 12:10:23.971',
+ 14,
+ NULL),
+
+(33,
+ 'ADJUSTER_ASSIGNED',
+ TIMESTAMP '2025-11-06 12:23:45.461',
+ 14,
+ 7),
+
+(34,
+ 'SURVEYOR_ASSIGNED',
+ TIMESTAMP '2025-11-06 12:23:49.405',
+ 14,
+ 3),
+
+(35,
+ 'ADJUSTER_REMOVED',
+ TIMESTAMP '2025-11-06 12:27:06.710',
+ 14,
+ NULL),
+
+(36,
+ 'SURVEYOR_REMOVED',
+ TIMESTAMP '2025-11-06 12:27:10.420',
+ 14,
+ NULL),
+
+(37,
+ 'ADJUSTER_ASSIGNED',
+ TIMESTAMP '2025-11-06 12:27:14.939',
+ 14,
+ 9),
+
+(38,
+ 'SURVEYOR_ASSIGNED',
+ TIMESTAMP '2025-11-06 12:27:18.084',
+ 14,
+ 6),
+
+(39,
+ 'SURVEY_COMPLETED',
+ TIMESTAMP '2025-11-11 21:49:58.518',
+ 16,
+ 3),
+
+(40,
+ 'APPROVED',
+ TIMESTAMP '2025-11-11 22:06:30.629',
+ 16,
+ 7),
+
+(41,
+ 'SETTLED',
+ TIMESTAMP '2025-11-11 22:09:51.052',
+ 16,
+ 5);
+
+-- ============================================================
+-- FOREIGN KEYS
+-- ============================================================
+
+ALTER TABLE PUBLIC.CLAIM
+    ADD CONSTRAINT FK_CLAIM_CUSTOMER
+    FOREIGN KEY (CUSTOMER_ID)
+    REFERENCES PUBLIC.APP_USER(ID);
+
+ALTER TABLE PUBLIC.APP_USER_ROLES
+    ADD CONSTRAINT FK_APP_USER_ROLES_USER
+    FOREIGN KEY (APP_USER_ID)
+    REFERENCES PUBLIC.APP_USER(ID);
+
+ALTER TABLE PUBLIC.CLAIM_ASSIGNMENT
+    ADD CONSTRAINT FK_ASSIGNMENT_SURVEYOR
+    FOREIGN KEY (SURVEYOR_ID)
+    REFERENCES PUBLIC.APP_USER(ID);
+
+ALTER TABLE PUBLIC.CLAIM_ASSIGNMENT
+    ADD CONSTRAINT FK_ASSIGNMENT_ADJUSTER
+    FOREIGN KEY (ADJUSTER_ID)
+    REFERENCES PUBLIC.APP_USER(ID);
+
+ALTER TABLE PUBLIC.CLAIM_ASSIGNMENT
+    ADD CONSTRAINT FK_ASSIGNMENT_MANAGER
+    FOREIGN KEY (MANAGER_ID)
+    REFERENCES PUBLIC.APP_USER(ID);
+
+ALTER TABLE PUBLIC.CLAIM_ASSIGNMENT
+    ADD CONSTRAINT FK_ASSIGNMENT_CLAIM
+    FOREIGN KEY (CLAIM_ID)
+    REFERENCES PUBLIC.CLAIM(CLAIM_ID);
+
+ALTER TABLE PUBLIC.CLAIM_EVENT
+    ADD CONSTRAINT FK_EVENT_CLAIM
+    FOREIGN KEY (CLAIM_ID)
+    REFERENCES PUBLIC.CLAIM(CLAIM_ID);
+
+ALTER TABLE PUBLIC.CLAIM_EVENT
+    ADD CONSTRAINT FK_EVENT_USER
+    FOREIGN KEY (USER_ID)
+    REFERENCES PUBLIC.APP_USER(ID);
+
+-- ============================================================
+-- RESET IDENTITY
+-- ============================================================
+
+ALTER TABLE PUBLIC.CLAIM_ASSIGNMENT
+    ALTER COLUMN ASSIGNMENT_ID
+    RESTART WITH 23;
+
+-- ============================================================
+-- RESTORE REFERENTIAL INTEGRITY
+-- ============================================================
+
+SET REFERENTIAL_INTEGRITY TRUE;
+
+-- ============================================================
+-- VERIFY
+-- ============================================================
+
+SELECT COUNT(*) AS APP_USER_COUNT
+FROM PUBLIC.APP_USER;
+
+SELECT COUNT(*) AS APP_USER_ROLES_COUNT
+FROM PUBLIC.APP_USER_ROLES;
+
+SELECT COUNT(*) AS CLAIM_COUNT
+FROM PUBLIC.CLAIM;
+
+SELECT COUNT(*) AS CLAIM_ASSIGNMENT_COUNT
+FROM PUBLIC.CLAIM_ASSIGNMENT;
+
+SELECT COUNT(*) AS CLAIM_EVENT_COUNT
+FROM PUBLIC.CLAIM_EVENT;
