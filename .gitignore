@@ -4,6 +4,7 @@ eclaims-be/.classpath
 eclaims-be/.project
 eclaims-be/.settings/
 eclaims-be/*.log
+eclaims-be/.factorypath
 
 # === Angular frontend ===
 eclaims-fe/eclaims-ui/node_modules/
@@ -20,4 +21,4 @@ eclaims-fe/eclaims-ui/.DS_Store
 Thumbs.db
 .idea/
 .vscode/
-*.pdf 
+*.pdf
