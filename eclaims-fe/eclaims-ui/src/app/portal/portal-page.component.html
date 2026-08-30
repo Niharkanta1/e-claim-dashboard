@@ -2,7 +2,7 @@
   <header class="page-heading">
     <div>
       <span class="eyebrow">{{ 'portal.eyebrow' | translate }}</span>
-      <h1 *ngIf="pageKey === 'policies'">{{ 'portal.policies' | translate }}</h1><h1 *ngIf="pageKey === 'services'">{{ 'portal.services' | translate }}</h1><h1 *ngIf="pageKey === 'profile'">{{ 'portal.profile' | translate }}</h1><h1 *ngIf="pageKey === 'garages'">{{ 'portal.garages' | translate }}</h1><h1 *ngIf="pageKey === 'rental'">{{ 'portal.rentals' | translate }}</h1>
+      <h1 class="page-title" *ngIf="pageKey === 'policies'">{{ 'portal.policies' | translate }}</h1><h1 class="page-title" *ngIf="pageKey === 'services'">{{ 'portal.services' | translate }}</h1><h1 class="page-title" *ngIf="pageKey === 'profile'">{{ 'portal.profile' | translate }}</h1><h1 class="page-title" *ngIf="pageKey === 'garages'">{{ 'portal.garages' | translate }}</h1><h1 class="page-title" *ngIf="pageKey === 'rental'">{{ 'portal.rentals' | translate }}</h1>
       <p *ngIf="pageKey === 'policies'">{{ 'portal.policiesText' | translate }}</p><p *ngIf="pageKey === 'services'">{{ 'portal.servicesText' | translate }}</p><p *ngIf="pageKey === 'profile'">{{ 'portal.profileText' | translate }}</p><p *ngIf="pageKey === 'garages'">{{ 'portal.garagesText' | translate }}</p><p *ngIf="pageKey === 'rental'">{{ 'portal.rentalsText' | translate }}</p>
     </div>
     <div class="status-chip"><span></span> {{ 'portal.active' | translate }}</div>

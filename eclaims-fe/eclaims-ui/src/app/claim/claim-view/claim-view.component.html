@@ -1,11 +1,11 @@
 <div class="container my-5">
     <div *ngIf="claim" class="p-4">
-        <h2 class="mb-4">{{ 'claim.details' | translate }}</h2>
+        <h2 class="page-title">{{ 'claim.details' | translate }}</h2>
 
         <!-- Claim Basic Information -->
         <div class="card mb-4">
             <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">{{ 'claim.information' | translate }}</h5>
+                <h5 class="section-title mb-0">{{ 'claim.information' | translate }}</h5>
             </div>
             <div class="card-body">
                 <p><strong>{{ 'claim.id' | translate }}:</strong> {{ claim.claimId }}</p>
@@ -20,7 +20,7 @@
         <!-- Customer Information -->
         <div class="card mb-4">
             <div class="card-header bg-info text-white">
-                <h5 class="mb-0">{{ 'claim.customerDetails' | translate }}</h5>
+                <h5 class="section-title mb-0">{{ 'claim.customerDetails' | translate }}</h5>
             </div>
             <div class="card-body">
                 <p><strong>{{ 'claim.customerName' | translate }}:</strong> {{ claim.customer.firstName }} {{ claim.customer.lastName }}</p>
@@ -33,7 +33,7 @@
         <!-- Assignment Information -->
         <div class="card mb-4" *ngIf="role === 'CUSTOMER'">
             <div class="card-header bg-success text-white">
-                <h5 class="mb-0">{{ 'claim.assignmentDetails' | translate }}</h5>
+                <h5 class="section-title mb-0">{{ 'claim.assignmentDetails' | translate }}</h5>
             </div>
             <div class="card-body">
                 <p><strong>{{ 'claim.assignmentId' | translate }}:</strong> {{ claim.assignment.assignmentId }}</p>
@@ -54,7 +54,7 @@
         <!-- Document Paths -->
         <div class="card mb-4">
             <div class="card-header bg-warning text-white">
-                <h5 class="mb-0">{{ 'claim.documentsImages' | translate }}</h5>
+                <h5 class="section-title mb-0">{{ 'claim.documentsImages' | translate }}</h5>
             </div>
             <div class="card-body">
                 <!-- Check the user role or a condition -->

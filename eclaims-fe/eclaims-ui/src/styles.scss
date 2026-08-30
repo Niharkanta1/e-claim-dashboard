@@ -39,6 +39,28 @@ body {
   line-height: 1.55;
 }
 h1, h2, h3, h4, h5, h6, .navbar-brand { font-family: 'Space Grotesk', sans-serif; color: var(--ink); }
+.page-title {
+  position: relative;
+  margin: 0 0 1.75rem;
+  color: var(--ink);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-align: left;
+}
+.page-title::after {
+  display: block;
+  width: 42px;
+  height: 3px;
+  margin-top: .65rem;
+  border-radius: 2px;
+  background: var(--accent);
+  content: '';
+}
+.page-title.text-center { text-align: center; }
+.page-title.text-center::after { margin-right: auto; margin-left: auto; }
+.section-title { color: inherit; font-size: 1.05rem; font-weight: 600; letter-spacing: 0; }
 a { color: var(--brand); transition: color .2s ease; }
 a:hover { color: var(--brand-dark); }
 .container, .container-fluid { padding-top: 28px; padding-bottom: 40px; }
@@ -47,6 +69,11 @@ a:hover { color: var(--brand-dark); }
 .btn:hover { transform: translateY(-1px); }
 .btn-primary { background: var(--brand); border-color: var(--brand); }
 .btn-primary:hover, .btn-primary:focus { background: var(--brand-dark); border-color: var(--brand-dark); box-shadow: 0 5px 14px rgba(8, 127, 120, .2); }
+.btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle { background: var(--brand-dark); border-color: var(--brand-dark); }
+.btn-outline-primary { color: var(--brand); border-color: var(--brand); }
+.btn-outline-primary:hover, .btn-outline-primary:focus { background: var(--brand); border-color: var(--brand); color: #fff; box-shadow: 0 5px 14px rgba(8, 127, 120, .16); }
+.btn-outline-primary:active, .btn-outline-primary.active, .show > .btn-outline-primary.dropdown-toggle { background: var(--brand-dark); border-color: var(--brand-dark); color: #fff; }
+.btn-primary:disabled, .btn-outline-primary:disabled { opacity: .58; }
 .text-primary { color: var(--brand) !important; }
 .text-danger { color: #c45757 !important; }
 .form-control, .form-select { border: 1px solid #cbdcd8; border-radius: 7px; min-height: 42px; color: var(--ink); }
