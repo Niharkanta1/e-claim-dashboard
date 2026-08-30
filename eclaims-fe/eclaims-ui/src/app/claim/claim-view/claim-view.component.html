@@ -4,7 +4,7 @@
 
         <!-- Claim Basic Information -->
         <div class="card mb-4">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header app-card-header">
                 <h5 class="section-title mb-0">{{ 'claim.information' | translate }}</h5>
             </div>
             <div class="card-body">
@@ -19,7 +19,7 @@
 
         <!-- Customer Information -->
         <div class="card mb-4">
-            <div class="card-header bg-info text-white">
+            <div class="card-header app-card-header">
                 <h5 class="section-title mb-0">{{ 'claim.customerDetails' | translate }}</h5>
             </div>
             <div class="card-body">
@@ -32,7 +32,7 @@
 
         <!-- Assignment Information -->
         <div class="card mb-4" *ngIf="role === 'CUSTOMER'">
-            <div class="card-header bg-success text-white">
+            <div class="card-header app-card-header">
                 <h5 class="section-title mb-0">{{ 'claim.assignmentDetails' | translate }}</h5>
             </div>
             <div class="card-body">
@@ -53,7 +53,7 @@
 
         <!-- Document Paths -->
         <div class="card mb-4">
-            <div class="card-header bg-warning text-white">
+            <div class="card-header app-card-header">
                 <h5 class="section-title mb-0">{{ 'claim.documentsImages' | translate }}</h5>
             </div>
             <div class="card-body">

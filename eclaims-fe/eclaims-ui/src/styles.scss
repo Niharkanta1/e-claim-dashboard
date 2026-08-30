@@ -61,6 +61,14 @@ h1, h2, h3, h4, h5, h6, .navbar-brand { font-family: 'Space Grotesk', sans-serif
 .page-title.text-center { text-align: center; }
 .page-title.text-center::after { margin-right: auto; margin-left: auto; }
 .section-title { color: inherit; font-size: 1.05rem; font-weight: 600; letter-spacing: 0; }
+.app-card-header {
+  border-bottom: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  background: var(--brand-soft);
+  color: var(--ink);
+  padding: .85rem 1.1rem;
+}
+.app-card-header .section-title { color: var(--ink); }
 a { color: var(--brand); transition: color .2s ease; }
 a:hover { color: var(--brand-dark); }
 .container, .container-fluid { padding-top: 28px; padding-bottom: 40px; }
@@ -106,10 +114,6 @@ body.theme-night .table, body.theme-night .card { color: var(--ink); }
 body.theme-night .form-control, body.theme-night .form-select { background: #1d2c31; border-color: var(--line); color: var(--ink); }
 body.theme-night .form-control::placeholder { color: #829795; }
 body.theme-night .bg-light { background: var(--surface) !important; color: var(--ink); }
-body.theme-night .bg-primary { background: var(--brand-dark) !important; }
-body.theme-night .bg-info { background: #287f8a !important; }
-body.theme-night .bg-success { background: #287c61 !important; }
-body.theme-night .bg-warning { background: #a96f20 !important; }
 body.theme-night .list-group-item strong { color: var(--brand); }
 .page-heading { animation: page-enter .45s ease both; }
 
