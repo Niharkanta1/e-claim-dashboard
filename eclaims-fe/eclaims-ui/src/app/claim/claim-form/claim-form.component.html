@@ -54,7 +54,7 @@
 
         <div class="mb-3">
             <label for="fileUpload" class="form-label">Upload Files</label>
-            <input type="file" id="fileUpload" multiple (change)="onFileChange($event)" class="form-control" />
+            <input type="file" id="fileUpload" multiple (change)="onFilesChange($event)" class="form-control" />
         </div>
 
         <button [disabled]="submitting" type="submit" class="btn btn-primary">

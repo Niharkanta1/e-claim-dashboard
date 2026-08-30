@@ -15,10 +15,14 @@ import { AuthGuard } from "./auth/auth.guard";
 import { ClaimProgressComponent } from "./claim/claim-progress/claim-progress.component";
 import { OverviewComponent } from "./management/overview/overview.component";
 import { ReportsComponent } from "./management/reports/reports.component";
+import { PortalPageComponent } from "./portal/portal-page.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "login", component: LoginComponent },
+  { path: "policies", component: PortalPageComponent, data: { page: "policies" }, canActivate: [AuthGuard] },
+  { path: "services", component: PortalPageComponent, data: { page: "services" }, canActivate: [AuthGuard] },
+  { path: "profile", component: PortalPageComponent, data: { page: "profile" }, canActivate: [AuthGuard] },
   {
     path: "customer-dashboard",
     component: CustomerDashboardComponent,
@@ -27,6 +31,8 @@ const routes: Routes = [
       { path: "claims", component: ClaimListComponent },
       { path: "claim/:id", component: ClaimViewComponent },
       { path: "new-claim", component: ClaimFormComponent },
+      { path: "partner-garage", component: PortalPageComponent, data: { page: "garages" } },
+      { path: "rental", component: PortalPageComponent, data: { page: "rental" } },
     ],
     canActivate: [AuthGuard],
   },

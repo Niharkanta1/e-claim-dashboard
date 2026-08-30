@@ -21,6 +21,7 @@ import { AuthInterceptor } from "./auth/auth-jwt.interceptor";
 import { ClaimProgressComponent } from './claim/claim-progress/claim-progress.component';
 import { OverviewComponent } from './management/overview/overview.component';
 import { ReportsComponent } from './management/reports/reports.component';
+import { PortalPageComponent } from './portal/portal-page.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ReportsComponent } from './management/reports/reports.component';
     ClaimProgressComponent,
     OverviewComponent,
     ReportsComponent,
+    PortalPageComponent,
   ],
   imports: [
     BrowserModule,

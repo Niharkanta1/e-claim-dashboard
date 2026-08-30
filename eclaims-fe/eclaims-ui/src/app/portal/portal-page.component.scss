@@ -1,0 +1,31 @@
+.portal-page { max-width: 1120px; margin: 0 auto; padding: 42px 24px 64px; color: #19324a; }
+.page-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px; }
+.eyebrow, .card-label { color: #0e8a82; text-transform: uppercase; letter-spacing: .09em; font-size: 11px; font-weight: 700; }
+h1 { font-size: 36px; margin: 7px 0 8px; font-weight: 700; }
+h2 { font-size: 19px; margin: 10px 0; }
+.page-heading p, .muted, .info-card p { color: #6b7d8d; }
+.status-chip { background: #e7f6f0; color: #16705f; padding: 9px 13px; border-radius: 20px; font-size: 13px; white-space: nowrap; }
+.status-chip span { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #20a77b; margin-right: 6px; }
+.content-grid, .profile-layout { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.service-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.info-card { background: #fff; border: 1px solid #dce7eb; border-radius: 7px; padding: 24px; box-shadow: 0 7px 20px rgba(36, 71, 91, .06); }
+.featured-card { border-top: 4px solid #e69b3a; }
+.card-row, .profile-summary { display: flex; justify-content: space-between; border-top: 1px solid #e8eef0; padding: 13px 0 0; margin-top: 13px; font-size: 14px; }
+.feature-list { padding-left: 19px; margin: 18px 0 0; line-height: 2.3; color: #496073; }
+.service-icon, .directory-mark, .avatar { display: inline-flex; align-items: center; justify-content: center; background: #e4f3f1; color: #087d78; font-weight: 700; }
+.service-icon { width: 38px; height: 38px; border-radius: 8px; }
+.service-grid .info-card { display: flex; flex-direction: column; align-items: flex-start; }
+.service-grid .btn { margin-top: auto; }
+.profile-layout { grid-template-columns: .7fr 1.3fr; }
+.profile-card { text-align: center; }
+.avatar { width: 74px; height: 74px; border-radius: 50%; font-size: 28px; margin: 4px auto 15px; }
+.profile-summary { text-align: left; }
+.form-group { margin: 17px 0; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.save-message { color: #168263; font-size: 13px; margin-left: 12px; }
+.directory-grid { display: grid; gap: 14px; }
+.directory-card { display: flex; align-items: center; gap: 18px; }
+.directory-mark { flex: 0 0 48px; height: 48px; border-radius: 10px; font-size: 20px; }
+.directory-copy { flex: 1; }.directory-copy h2 { margin: 0 0 4px; }.directory-copy p { margin: 0 0 8px; }
+.availability { color: #16705f; background: #e7f6f0; border-radius: 12px; padding: 4px 9px; font-size: 12px; }
+@media (max-width: 760px) { .portal-page { padding: 28px 16px 48px; } .page-heading { align-items: flex-start; flex-direction: column; } h1 { font-size: 30px; } .content-grid, .profile-layout, .service-grid { grid-template-columns: 1fr; } .directory-card { align-items: flex-start; flex-wrap: wrap; } .directory-card .btn { margin-left: 66px; } }

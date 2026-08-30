@@ -1,0 +1,87 @@
+<main class="portal-page">
+  <header class="page-heading">
+    <div>
+      <span class="eyebrow">e-Claims member portal</span>
+      <h1 *ngIf="pageKey === 'policies'">Policies</h1>
+      <h1 *ngIf="pageKey === 'services'">Services</h1>
+      <h1 *ngIf="pageKey === 'profile'">User Profile</h1>
+      <h1 *ngIf="pageKey === 'garages'">Partner Garages</h1>
+      <h1 *ngIf="pageKey === 'rental'">Rental Vehicles</h1>
+      <p *ngIf="pageKey === 'policies'">Review your active cover and policy documents in one place.</p>
+      <p *ngIf="pageKey === 'services'">Quick access to the support and claims services available to you.</p>
+      <p *ngIf="pageKey === 'profile'">Keep your contact details current so claim updates reach you.</p>
+      <p *ngIf="pageKey === 'garages'">Find trusted repair partners for your vehicle claim.</p>
+      <p *ngIf="pageKey === 'rental'">Browse replacement vehicles while your car is being repaired.</p>
+    </div>
+    <div class="status-chip"><span></span> Account active</div>
+  </header>
+
+  <section *ngIf="pageKey === 'policies'" class="content-grid">
+    <article class="info-card featured-card">
+      <span class="card-label">Primary cover</span>
+      <h2>Comprehensive Motor Cover</h2>
+      <p class="muted">Policy ECL-20481 · Active until 12 March 2027</p>
+      <div class="card-row"><span>Annual premium</span><strong>$1,248.00</strong></div>
+      <div class="card-row"><span>Renewal date</span><strong>12 Mar 2027</strong></div>
+      <button class="btn btn-primary mt-3">View policy document</button>
+    </article>
+    <article class="info-card">
+      <span class="card-label">Included benefits</span>
+      <ul class="feature-list">
+        <li>Accidental damage and theft protection</li>
+        <li>24/7 roadside assistance</li>
+        <li>Courtesy vehicle while repairs are underway</li>
+        <li>Glass and windscreen cover</li>
+      </ul>
+    </article>
+  </section>
+
+  <section *ngIf="pageKey === 'services'" class="content-grid service-grid">
+    <article class="info-card" *ngFor="let service of [
+      { title: 'Make a claim', text: 'Report an incident and track every step online.', action: 'Start a claim', link: '/customer-dashboard/new-claim' },
+      { title: 'Track a claim', text: 'See the latest status, documents, and next steps.', action: 'View my claims', link: '/customer-dashboard/claims' },
+      { title: 'Find a repair partner', text: 'Choose a trusted garage from our partner network.', action: 'Find a garage', link: '/customer-dashboard/partner-garage' },
+      { title: 'Arrange a rental', text: 'Explore replacement vehicles during your repair.', action: 'Browse rentals', link: '/customer-dashboard/rental' }
+    ]">
+      <span class="service-icon">{{ service.title.charAt(0) }}</span>
+      <h2>{{ service.title }}</h2>
+      <p>{{ service.text }}</p>
+      <a class="btn btn-outline-primary" [routerLink]="service.link">{{ service.action }}</a>
+    </article>
+  </section>
+
+  <section *ngIf="pageKey === 'profile'" class="profile-layout">
+    <article class="info-card profile-card">
+      <div class="avatar">{{ (profile.fullName || 'U').charAt(0).toUpperCase() }}</div>
+      <h2>{{ profile.fullName || 'Your profile' }}</h2>
+      <p class="muted">{{ user.role || 'Member' }} account</p>
+      <div class="profile-summary"><span>Member since</span><strong>January 2024</strong></div>
+      <div class="profile-summary"><span>Account status</span><strong class="text-success">Verified</strong></div>
+    </article>
+    <form class="info-card" (ngSubmit)="saveProfile()">
+      <span class="card-label">Contact details</span>
+      <div class="form-group"><label for="fullName">Full name</label><input id="fullName" name="fullName" class="form-control" [(ngModel)]="profile.fullName"></div>
+      <div class="form-group"><label for="email">Email address</label><input id="email" name="email" type="email" class="form-control" [(ngModel)]="profile.email"></div>
+      <div class="form-group"><label for="phone">Phone number</label><input id="phone" name="phone" class="form-control" placeholder="Add a phone number" [(ngModel)]="profile.phone"></div>
+      <div class="form-group"><label for="contact">Preferred contact</label><select id="contact" name="contact" class="form-control" [(ngModel)]="profile.preferredContact"><option>Email</option><option>Phone</option></select></div>
+      <button class="btn btn-primary" type="submit">Save changes</button>
+      <span class="save-message" *ngIf="saved">Profile changes saved for this session.</span>
+    </form>
+  </section>
+
+  <section *ngIf="pageKey === 'garages' || pageKey === 'rental'" class="directory-grid">
+    <article class="info-card directory-card" *ngFor="let item of pageKey === 'garages' ? [
+      { name: 'Northside Auto Care', detail: '12.4 km · Repairs and bodywork', tag: 'Next available today' },
+      { name: 'Riverside Motors', detail: '18.7 km · Certified collision repair', tag: 'Highly rated' },
+      { name: 'Cityline Vehicle Centre', detail: '22.1 km · Mechanical and glass', tag: 'Open Saturday' }
+    ] : [
+      { name: 'Compact hatchback', detail: 'From $34/day · 5 seats · Automatic', tag: 'Available now' },
+      { name: 'Family SUV', detail: 'From $59/day · 7 seats · Automatic', tag: 'Popular choice' },
+      { name: 'Hybrid sedan', detail: 'From $47/day · 5 seats · Automatic', tag: 'Low emissions' }
+    ]">
+      <div class="directory-mark">{{ pageKey === 'garages' ? 'G' : 'R' }}</div>
+      <div class="directory-copy"><h2>{{ item.name }}</h2><p>{{ item.detail }}</p><span class="availability">{{ item.tag }}</span></div>
+      <button class="btn btn-outline-primary">{{ pageKey === 'garages' ? 'View garage' : 'View vehicle' }}</button>
+    </article>
+  </section>
+</main>
