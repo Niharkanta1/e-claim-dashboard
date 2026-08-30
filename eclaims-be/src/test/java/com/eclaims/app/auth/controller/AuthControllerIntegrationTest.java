@@ -93,6 +93,17 @@ class AuthControllerIntegrationTest {
     }
 
     @Test
+    void forgotPasswordIsAvailableWithoutAuthentication() throws Exception {
+        doNothing().when(userDetailsService).resetPassword("alice", "alice@example.com", "new-password");
+
+        mockMvc.perform(post("/api/auth/forgot-password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"username\":\"alice\",\"email\":\"alice@example.com\",\"newPassword\":\"new-password\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.message").value("Password reset successfully"));
+    }
+
+    @Test
     void removeUserDelegatesUserId() throws Exception {
         doNothing().when(userDetailsService).removeUser(42L);
 
