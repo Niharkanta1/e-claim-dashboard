@@ -3,9 +3,10 @@ import { ActivatedRoute } from "@angular/router";
 import { AuthService } from "../service/auth.service";
 
 @Component({
-  selector: "app-portal-page",
-  templateUrl: "./portal-page.component.html",
-  styleUrls: ["./portal-page.component.scss"],
+    selector: "app-portal-page",
+    templateUrl: "./portal-page.component.html",
+    styleUrls: ["./portal-page.component.scss"],
+    standalone: false
 })
 export class PortalPageComponent implements OnInit {
   pageKey = "";

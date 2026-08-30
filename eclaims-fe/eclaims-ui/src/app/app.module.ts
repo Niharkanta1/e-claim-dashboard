@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -23,40 +23,34 @@ import { OverviewComponent } from './management/overview/overview.component';
 import { ReportsComponent } from './management/reports/reports.component';
 import { PortalPageComponent } from './portal/portal-page.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    CustomerDashboardComponent,
-    ManagerDashboardComponent,
-    AdjusterDashboardComponent,
-    PartnerDashboardComponent,
-    NavBarComponent,
-    AboutUsComponent,
-    ProductsComponent,
-    SupportComponent,
-    ClaimFormComponent,
-    ClaimListComponent,
-    ClaimViewComponent,
-    ClaimProgressComponent,
-    OverviewComponent,
-    ReportsComponent,
-    PortalPageComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LoginComponent,
+        CustomerDashboardComponent,
+        ManagerDashboardComponent,
+        AdjusterDashboardComponent,
+        PartnerDashboardComponent,
+        NavBarComponent,
+        AboutUsComponent,
+        ProductsComponent,
+        SupportComponent,
+        ClaimFormComponent,
+        ClaimListComponent,
+        ClaimViewComponent,
+        ClaimProgressComponent,
+        OverviewComponent,
+        ReportsComponent,
+        PortalPageComponent,
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule], providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule {}

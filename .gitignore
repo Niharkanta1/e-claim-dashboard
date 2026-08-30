@@ -20,3 +20,4 @@ eclaims-fe/eclaims-ui/.DS_Store
 Thumbs.db
 .idea/
 .vscode/
+*.pdf 

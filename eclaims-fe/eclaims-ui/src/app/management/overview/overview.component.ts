@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { ClaimService } from "src/app/service/claim.service";
 
 @Component({
-  selector: "app-overview",
-  templateUrl: "./overview.component.html",
-  styleUrls: ["./overview.component.scss"],
+    selector: "app-overview",
+    templateUrl: "./overview.component.html",
+    styleUrls: ["./overview.component.scss"],
+    standalone: false
 })
 export class OverviewComponent implements OnInit {
   totalClaims: number = 0;

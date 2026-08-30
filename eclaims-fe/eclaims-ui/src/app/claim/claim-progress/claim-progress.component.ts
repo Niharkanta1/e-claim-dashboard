@@ -3,9 +3,10 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ClaimService } from "../../service/claim.service";
 
 @Component({
-  selector: "app-claim-progress",
-  templateUrl: "./claim-progress.component.html",
-  styleUrls: ["./claim-progress.component.scss"],
+    selector: "app-claim-progress",
+    templateUrl: "./claim-progress.component.html",
+    styleUrls: ["./claim-progress.component.scss"],
+    standalone: false
 })
 export class ClaimProgressComponent implements OnInit {
   claim: any;

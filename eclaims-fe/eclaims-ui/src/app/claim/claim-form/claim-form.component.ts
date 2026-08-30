@@ -4,9 +4,10 @@ import { ClaimService } from "../../service/claim.service";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-claim-form",
-  templateUrl: "./claim-form.component.html",
-  styleUrls: ["./claim-form.component.scss"],
+    selector: "app-claim-form",
+    templateUrl: "./claim-form.component.html",
+    styleUrls: ["./claim-form.component.scss"],
+    standalone: false
 })
 export class ClaimFormComponent implements OnInit {
   files: File[] = [];

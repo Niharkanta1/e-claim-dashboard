@@ -3,9 +3,10 @@ import { Router } from "@angular/router";
 import { AuthService } from "src/app/service/auth.service";
 
 @Component({
-  selector: "app-nav-bar",
-  templateUrl: "./nav-bar.component.html",
-  styleUrls: ["./nav-bar.component.scss"],
+    selector: "app-nav-bar",
+    templateUrl: "./nav-bar.component.html",
+    styleUrls: ["./nav-bar.component.scss"],
+    standalone: false
 })
 export class NavBarComponent implements OnInit {
   constructor(public auth: AuthService, private router: Router) {}

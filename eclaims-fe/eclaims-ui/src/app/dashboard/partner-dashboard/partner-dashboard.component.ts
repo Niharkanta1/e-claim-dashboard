@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-partner-dashboard',
-  templateUrl: './partner-dashboard.component.html',
-  styleUrls: ['./partner-dashboard.component.scss']
+    selector: 'app-partner-dashboard',
+    templateUrl: './partner-dashboard.component.html',
+    styleUrls: ['./partner-dashboard.component.scss'],
+    standalone: false
 })
 export class PartnerDashboardComponent implements OnInit {
 

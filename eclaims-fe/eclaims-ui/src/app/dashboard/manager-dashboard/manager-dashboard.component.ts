@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-manager-dashboard',
-  templateUrl: './manager-dashboard.component.html',
-  styleUrls: ['./manager-dashboard.component.scss']
+    selector: 'app-manager-dashboard',
+    templateUrl: './manager-dashboard.component.html',
+    styleUrls: ['./manager-dashboard.component.scss'],
+    standalone: false
 })
 export class ManagerDashboardComponent implements OnInit {
 

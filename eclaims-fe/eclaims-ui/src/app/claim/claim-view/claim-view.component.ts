@@ -4,9 +4,10 @@ import { ClaimService } from "../../service/claim.service";
 import { AuthService } from "src/app/service/auth.service";
 
 @Component({
-  selector: "app-claim-view",
-  templateUrl: "./claim-view.component.html",
-  styleUrls: ["./claim-view.component.scss"],
+    selector: "app-claim-view",
+    templateUrl: "./claim-view.component.html",
+    styleUrls: ["./claim-view.component.scss"],
+    standalone: false
 })
 export class ClaimViewComponent implements OnInit {
   claim: any;

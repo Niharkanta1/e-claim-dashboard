@@ -2,9 +2,10 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
 @Component({
-  selector: "app-customer-dashboard",
-  templateUrl: "./customer-dashboard.component.html",
-  styleUrls: ["./customer-dashboard.component.scss"],
+    selector: "app-customer-dashboard",
+    templateUrl: "./customer-dashboard.component.html",
+    styleUrls: ["./customer-dashboard.component.scss"],
+    standalone: false
 })
 export class CustomerDashboardComponent implements OnInit {
   constructor(private router: Router) {}

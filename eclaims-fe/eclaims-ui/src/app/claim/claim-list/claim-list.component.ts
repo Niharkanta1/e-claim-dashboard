@@ -5,9 +5,10 @@ import { AuthService } from "src/app/service/auth.service";
 import { UserService } from "src/app/service/user.service";
 
 @Component({
-  selector: "app-claim-list",
-  templateUrl: "./claim-list.component.html",
-  styleUrls: ["./claim-list.component.scss"],
+    selector: "app-claim-list",
+    templateUrl: "./claim-list.component.html",
+    styleUrls: ["./claim-list.component.scss"],
+    standalone: false
 })
 export class ClaimListComponent implements OnInit {
   claims: any[] = [];
