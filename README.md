@@ -1,5 +1,8 @@
 ﻿# e-claim-dashboard
 
+Java: 17.0.12
+Node: v22.21.1
+
 #### SCREENSHOTS:
 <img width="1919" height="900" alt="{2DC9AC1A-D372-457E-A9CE-0E94B8B2E619}" src="https://github.com/user-attachments/assets/39c285c6-b99a-4c5d-bf05-1450009e2b11" />
 <img width="1902" height="852" alt="{529FCC91-003C-4437-8E70-0B0D0C0DA342}" src="https://github.com/user-attachments/assets/e2c61071-85a3-4ede-87e6-598c2d6bdd4b" />
