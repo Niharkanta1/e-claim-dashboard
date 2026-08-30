@@ -23,6 +23,9 @@ import { OverviewComponent } from './management/overview/overview.component';
 import { ReportsComponent } from './management/reports/reports.component';
 import { PortalPageComponent } from './portal/portal-page.component';
 import { TranslatePipe } from "./i18n/translate.pipe";
+import { RegisterComponent } from "./auth/register/register.component";
+import { ChangePasswordComponent } from "./auth/change-password/change-password.component";
+import { ForgotPasswordComponent } from "./auth/forgot-password/forgot-password.component";
 
 @NgModule({ declarations: [
         AppComponent,
@@ -43,6 +46,9 @@ import { TranslatePipe } from "./i18n/translate.pipe";
         ReportsComponent,
         PortalPageComponent,
         TranslatePipe,
+        RegisterComponent,
+        ChangePasswordComponent,
+        ForgotPasswordComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,27 @@ public class AuthController {
 	@PostMapping("/register")
 	public User registerUser(@RequestBody User user) {
 		return userDetailsService.registerUser(user);
+	}
+
+	@PostMapping("/change-password")
+	public ResponseEntity<?> changePassword(@RequestBody AuthRequest request, Authentication authentication) {
+		try {
+			userDetailsService.changePassword(authentication.getName(), request.getCurrentPassword(),
+					request.getNewPassword());
+			return ResponseEntity.ok(Map.of("message", "Password changed successfully"));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
+
+	@PostMapping("/forgot-password")
+	public ResponseEntity<?> forgotPassword(@RequestBody AuthRequest request) {
+		try {
+			userDetailsService.resetPassword(request.getUsername(), request.getEmail(), request.getNewPassword());
+			return ResponseEntity.ok(Map.of("message", "Password reset successfully"));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
 	}
 
 	@DeleteMapping("/remove/user/{userId}")

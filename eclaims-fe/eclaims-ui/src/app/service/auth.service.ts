@@ -23,6 +23,18 @@ export class AuthService {
     );
   }
 
+  register(user: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, user);
+  }
+
+  changePassword(currentPassword: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/change-password`, { currentPassword, newPassword });
+  }
+
+  resetPassword(username: string, email: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.baseUrl}/forgot-password`, { username, email, newPassword });
+  }
+
   decodeAndSetUser(token: string) {
     const payload = JSON.parse(atob(token.split(".")[1]));
     const role =

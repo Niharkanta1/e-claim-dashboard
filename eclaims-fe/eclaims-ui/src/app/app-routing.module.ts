@@ -16,10 +16,16 @@ import { ClaimProgressComponent } from "./claim/claim-progress/claim-progress.co
 import { OverviewComponent } from "./management/overview/overview.component";
 import { ReportsComponent } from "./management/reports/reports.component";
 import { PortalPageComponent } from "./portal/portal-page.component";
+import { RegisterComponent } from "./auth/register/register.component";
+import { ChangePasswordComponent } from "./auth/change-password/change-password.component";
+import { ForgotPasswordComponent } from "./auth/forgot-password/forgot-password.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "login", component: LoginComponent },
+  { path: "register", component: RegisterComponent },
+  { path: "forgot-password", component: ForgotPasswordComponent },
+  { path: "change-password", component: ChangePasswordComponent, canActivate: [AuthGuard] },
   { path: "policies", component: PortalPageComponent, data: { page: "policies" }, canActivate: [AuthGuard] },
   { path: "services", component: PortalPageComponent, data: { page: "services" }, canActivate: [AuthGuard] },
   { path: "profile", component: PortalPageComponent, data: { page: "profile" }, canActivate: [AuthGuard] },

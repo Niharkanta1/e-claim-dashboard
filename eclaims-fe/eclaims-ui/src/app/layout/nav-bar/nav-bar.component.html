@@ -39,10 +39,12 @@
       </button>
       <div class="account-actions" *ngIf="userLoggedIn">
         <span class="user-label mr-3">{{ user.username | titlecase }} <small>{{user.role}}</small></span>
+        <button class="btn btn-outline-light btn-sm mr-2" (click)="changePassword()">{{ 'nav.changePassword' | translate }}</button>
         <button class="btn btn-outline-light btn-sm" (click)="logout()">{{ 'nav.logout' | translate }}</button>
       </div>
       <div class="account-actions" *ngIf="!userLoggedIn">
         <span class="user-label mr-3">{{ user.username | titlecase }}</span>
+        <button class="btn btn-outline-light btn-sm mr-2" (click)="register()">{{ 'nav.register' | translate }}</button>
         <button class="btn btn-outline-light btn-sm" (click)="login()">{{ 'nav.login' | translate }}</button>
       </div>
       <label class="sr-only" for="language-select">{{ 'nav.language' | translate }}</label>

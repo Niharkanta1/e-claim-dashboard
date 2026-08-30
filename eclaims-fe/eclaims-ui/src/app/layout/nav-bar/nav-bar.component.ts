@@ -41,6 +41,14 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(["/login"]);
   }
 
+  register() {
+    this.router.navigate(["/register"]);
+  }
+
+  changePassword() {
+    this.router.navigate(["/change-password"]);
+  }
+
   toggleTheme(): void {
     this.theme.toggle();
   }
