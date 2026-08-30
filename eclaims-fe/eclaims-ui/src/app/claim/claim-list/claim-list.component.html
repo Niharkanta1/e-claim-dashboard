@@ -1,8 +1,9 @@
-<div class="container" style="max-width: 80%;">
+<div class="container claim-list-page">
     <h2 class="text-primary text-center mb-4"><span>
             {{ role === 'MANAGER' ? 'All Submitted Claims' : role === 'CUSTOMER'? 'Your Submitted Claims' : 'Assigned
             Claims'}}
         </span></h2>
+    <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -66,4 +67,5 @@
         </tbody>
         <p *ngIf="claims.length == 0">No Claims are available...</p>
     </table>
+    </div>
 </div>

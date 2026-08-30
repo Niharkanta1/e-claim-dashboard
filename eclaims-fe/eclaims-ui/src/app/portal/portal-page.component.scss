@@ -1,6 +1,6 @@
-.portal-page { max-width: 1120px; margin: 0 auto; padding: 42px 24px 64px; color: #19324a; }
+.portal-page { max-width: 1120px; margin: 0 auto; padding: 42px 24px 64px; color: var(--ink); }
 .page-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 32px; }
-.eyebrow, .card-label { color: #0e8a82; text-transform: uppercase; letter-spacing: .09em; font-size: 11px; font-weight: 700; }
+.eyebrow, .card-label { color: var(--brand); text-transform: uppercase; letter-spacing: .09em; font-size: 11px; font-weight: 700; }
 h1 { font-size: 36px; margin: 7px 0 8px; font-weight: 700; }
 h2 { font-size: 19px; margin: 10px 0; }
 .page-heading p, .muted, .info-card p { color: #6b7d8d; }

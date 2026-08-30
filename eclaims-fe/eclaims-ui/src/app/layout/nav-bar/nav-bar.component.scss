@@ -1,4 +1,44 @@
 .navbar-brand {
   font-weight: 600;
-  text-transform: capitalize;
+  letter-spacing: -.03em;
+  color: #fff;
+}
+
+nav.navbar {
+  min-height: 68px;
+  background: var(--ink);
+  box-shadow: 0 4px 18px rgba(24, 50, 59, .13);
+}
+
+.brand-mark {
+  display: inline-flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  margin-right: 7px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--ink);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+}
+
+.nav-link {
+  border-radius: 6px;
+  color: rgba(255, 255, 255, .7) !important;
+  margin: 0 2px;
+  padding: .5rem .75rem !important;
+}
+
+.nav-link:hover, .nav-link.active {
+  background: rgba(255, 255, 255, .1);
+  color: #fff !important;
+}
+
+.user-label { color: rgba(255, 255, 255, .82); }
+.user-label small { color: rgba(255, 255, 255, .55); margin-left: 4px; }
+
+@media (max-width: 991px) {
+  .account-area { padding: 12px 0 4px; }
 }

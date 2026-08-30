@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+<nav class="navbar navbar-expand-lg navbar-dark px-3">
   <a class="navbar-brand">
-    e-Claims
+    <span class="brand-mark">e</span> e-Claims
   </a>
 
   <button
@@ -28,13 +28,13 @@
       <li class="nav-item"><a class="nav-link" routerLink="/support">Support</a></li>
     </ul>
 
-    <div class="d-flex align-items-center text-white ml-auto">
+    <div class="d-flex align-items-center account-area ml-auto">
       <div *ngIf="userLoggedIn">
-        <span class="mr-3">{{ user.username | titlecase }} ({{user.role}})</span>
+        <span class="user-label mr-3">{{ user.username | titlecase }} <small>{{user.role}}</small></span>
         <button class="btn btn-outline-light btn-sm" (click)="logout()">Logout</button>
       </div>
       <div *ngIf="!userLoggedIn">
-        <span class="mr-3">{{ user.username | titlecase }}</span>
+        <span class="user-label mr-3">{{ user.username | titlecase }}</span>
         <button class="btn btn-outline-light btn-sm" (click)="login()">Login</button>
       </div>
     </div>

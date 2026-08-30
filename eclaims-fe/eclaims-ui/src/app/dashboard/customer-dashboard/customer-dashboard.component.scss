@@ -1,3 +1,21 @@
+ .dashboard {
+    padding: 28px 24px 44px;
+}
+
+.dashboard h2 { margin-bottom: 18px; }
+.menu { display: flex; flex-wrap: wrap; gap: 8px; }
+.menu a {
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: var(--surface);
+    color: var(--muted);
+    padding: 7px 12px;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.menu a:hover, .menu a.active { border-color: var(--brand); background: var(--brand-soft); color: var(--brand-dark); }
+.dashboard hr { border-color: var(--line); margin: 24px 10px; }
+
 /* Styling for the status timeline */
 .list-group-item {
     position: relative;
@@ -12,7 +30,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background-color: #007bff;
+    background-color: var(--brand);
 }
 
 .list-group-item:last-child {
@@ -22,5 +40,5 @@
 /* Color customization based on status */
 .list-group-item strong {
     font-weight: bold;
-    color: #007bff;
+    color: var(--brand);
 }

@@ -1,0 +1,5 @@
+.claim-list-page { max-width: 1440px; }
+.claim-list-page h2 { font-size: clamp(1.45rem, 2.5vw, 2rem); }
+.claim-list-page .table { min-width: 920px; }
+.claim-list-page .btn-link { color: var(--brand); font-weight: 600; text-decoration: none; }
+.claim-list-page .btn-link:hover { color: var(--brand-dark); }
